@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET subGenres</h1>
+
+<p>Get a complete list of all valid music sub genres and the top level genres they map to.</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET.<br/>
+For example:</p>
+
+<pre>
+GET /subGenres HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<p>When the HTTP request method is GET or DELETE, <br/>
+the standard way to pass data to a service is via the parameters of the "request method"
+in the "headers" section of the HTTP request. <br/>
+Currently, this service does not accept parameters.
+</p>
+<!-- 
+
+<pre>
+GET /genres/type/topLevel HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<h3>Example(s)</h3>
+
+<b>OPTION 1: by genre</b><br/>
+<pre>
+GET /eqRecommendations/genre/Country HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+
+<h3>Description</h3>
+
+<p>For each individual input parameter ...</p>
+
+ -->
+ 
+
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>200 Success</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.</p>
+
+<h3>Response Code = 200: &quot;Success&quot;</h3>
+
+<pre>
+[
+    {
+        "id": "52b242c7742ffe962f1cdf9e",
+        "name": "Alternative",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf8b",
+        "name": "Ambient/Dream Pop",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf8c",
+        "name": "Art Rock",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf8d",
+        "name": "Art-Folk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf8e",
+        "name": "Avant Rock",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf8f",
+        "name": "Brit Pop",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf90",
+        "name": "Emo",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf91",
+        "name": "Experimental",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf92",
+        "name": "General Alternative",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf93",
+        "name": "General Punk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf94",
+        "name": "Hardcore Punk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf95",
+        "name": "Indie",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf96",
+        "name": "Lo-Fi/Garage",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf97",
+        "name": "Old School Punk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf98",
+        "name": "Pop-Punk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf99",
+        "name": "Post-Punk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf9a",
+        "name": "Power Pop",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf9b",
+        "name": "Rap Metal",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf9c",
+        "name": "Riot Grrrl/Queercore",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf9d",
+        "name": "Straight Edge Punk",
+        "topLevelGenre": "Alternative & Punk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa8",
+        "name": "Acoustic Blues",
+        "topLevelGenre": "Blues"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa9",
+        "name": "Blues Rock",
+        "topLevelGenre": "Blues"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfaa",
+        "name": "Electric Blues",
+        "topLevelGenre": "Blues"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfab",
+        "name": "General Blues",
+        "topLevelGenre": "Blues"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfac",
+        "name": "Japanese Blues",
+        "topLevelGenre": "Blues"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdf9f",
+        "name": "Comedy",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa0",
+        "name": "General Books",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa1",
+        "name": "General Spoken",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa2",
+        "name": "Poetry",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa3",
+        "name": "Politics",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa4",
+        "name": "Religion",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa5",
+        "name": "Short Stories",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa6",
+        "name": "Spoken Word",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfa7",
+        "name": "Stories/Fairytales",
+        "topLevelGenre": "Books & Spoken"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfad",
+        "name": "General Children's Music",
+        "topLevelGenre": "Children's Music"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfae",
+        "name": "Japanese Children's Song (Doyo)",
+        "topLevelGenre": "Children's Music"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfaf",
+        "name": "Baroque",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb0",
+        "name": "Chamber Music",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb1",
+        "name": "Choral",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb2",
+        "name": "Classical Guitar",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb3",
+        "name": "Contemporary",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb4",
+        "name": "Ensembles",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb5",
+        "name": "General Classical",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb6",
+        "name": "Japanese Classical",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb7",
+        "name": "Medieval",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb8",
+        "name": "Opera",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfbb",
+        "name": "Other Classical",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfba",
+        "name": "Piano",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfbc",
+        "name": "Renaissance Era",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfb9",
+        "name": "Romantic Era",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfbd",
+        "name": "Strings",
+        "topLevelGenre": "Classical"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfbe",
+        "name": "Alternative Country",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfbf",
+        "name": "Bluegrass",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc0",
+        "name": "Contemporary Country",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc1",
+        "name": "Country Blues",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc2",
+        "name": "General Country",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc3",
+        "name": "Rockabilly",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc4",
+        "name": "Traditional Country",
+        "topLevelGenre": "Country"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc5",
+        "name": "Applications",
+        "topLevelGenre": "Data"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc6",
+        "name": "Games",
+        "topLevelGenre": "Data"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc7",
+        "name": "General Data",
+        "topLevelGenre": "Data"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc8",
+        "name": "Japanese Karaoke",
+        "topLevelGenre": "Data"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfc9",
+        "name": "Karaoke",
+        "topLevelGenre": "Data"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfca",
+        "name": "Operating Systems",
+        "topLevelGenre": "Data"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfcb",
+        "name": "Bachelor Pad",
+        "topLevelGenre": "Easy Listening"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfcc",
+        "name": "General Easy Listening",
+        "topLevelGenre": "Easy Listening"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfcd",
+        "name": "Lounge",
+        "topLevelGenre": "Easy Listening"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfce",
+        "name": "Love Songs",
+        "topLevelGenre": "Easy Listening"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfcf",
+        "name": "Mood Music",
+        "topLevelGenre": "Easy Listening"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd0",
+        "name": "Pop Vocals",
+        "topLevelGenre": "Easy Listening"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd1",
+        "name": "Acid House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd2",
+        "name": "Acid Jazz",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd3",
+        "name": "Ambient Electronica",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd4",
+        "name": "Ambient Trance",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd5",
+        "name": "Big Beat",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd6",
+        "name": "Club Dance",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd7",
+        "name": "Dark Techno/Darkwave",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd8",
+        "name": "Deep House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfd9",
+        "name": "Detroit Techno",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfda",
+        "name": "Drum n' Bass/Jungle",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfdb",
+        "name": "Electro",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfdc",
+        "name": "Electronica",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfdd",
+        "name": "Gabber",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfde",
+        "name": "Garage",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfdf",
+        "name": "General Dance",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe0",
+        "name": "General Electronic",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe1",
+        "name": "General House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe2",
+        "name": "General Techno",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe3",
+        "name": "General Trance",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe4",
+        "name": "Happy House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe5",
+        "name": "Hard Trance/Acid",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe6",
+        "name": "Hardcore Techno",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff1",
+        "name": "House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe7",
+        "name": "Illbient",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe8",
+        "name": "Industrial Dance",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfe9",
+        "name": "Minimalist Experimental",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfea",
+        "name": "Progressive House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfeb",
+        "name": "Progressive/Dream",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfec",
+        "name": "Rave Music",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfed",
+        "name": "Tech Trance",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfee",
+        "name": "Tribal House",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfef",
+        "name": "Trip Hop",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff0",
+        "name": "Turntablism",
+        "topLevelGenre": "Electronica/Dance"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff2",
+        "name": "Contemporary Folk",
+        "topLevelGenre": "Folk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff3",
+        "name": "General Folk",
+        "topLevelGenre": "Folk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff4",
+        "name": "Traditional Folk",
+        "topLevelGenre": "Folk"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff5",
+        "name": "Christian Pop",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff6",
+        "name": "Christian Rap",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff7",
+        "name": "Christian Rock",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff9",
+        "name": "General Christian",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdff8",
+        "name": "General Religious",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdffa",
+        "name": "Gospel",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdffc",
+        "name": "Hymns & Spirituals",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdffb",
+        "name": "Religious",
+        "topLevelGenre": "Gospel & Religious"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdffd",
+        "name": "Bass Assault",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce00f",
+        "name": "Conscious Hip-Hop/Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdffe",
+        "name": "East Coast Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1cdfff",
+        "name": "Foreign Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce000",
+        "name": "Freestyle Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce001",
+        "name": "Gangsta",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce00c",
+        "name": "Gangsta Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce002",
+        "name": "General Hip Hop",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce00e",
+        "name": "General Hip-Hop/Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce003",
+        "name": "General Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce004",
+        "name": "Hardcore Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce005",
+        "name": "Horrorcore",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce00b",
+        "name": "Midwestern Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce006",
+        "name": "Old School Hip Hop",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce007",
+        "name": "Southern Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce008",
+        "name": "Underground Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce00d",
+        "name": "West Coast",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce009",
+        "name": "West Coast Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce00a",
+        "name": "Western Hip-Hop/Rap",
+        "topLevelGenre": "Hip Hop/Rap"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce010",
+        "name": "Chanukka",
+        "topLevelGenre": "Holiday"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce011",
+        "name": "Christmas",
+        "topLevelGenre": "Holiday"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce012",
+        "name": "General Holiday",
+        "topLevelGenre": "Holiday"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce013",
+        "name": "Halloween",
+        "topLevelGenre": "Holiday"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce014",
+        "name": "General Industrial",
+        "topLevelGenre": "Industrial"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce015",
+        "name": "Hardcore Industrial",
+        "topLevelGenre": "Industrial"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce016",
+        "name": "Minimal/Noise",
+        "topLevelGenre": "Industrial"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce017",
+        "name": "Old School Industrial",
+        "topLevelGenre": "Industrial"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce018",
+        "name": "Ballroom",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce019",
+        "name": "Big Band Swing",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce01a",
+        "name": "Bop",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce01b",
+        "name": "Cool/West Coast Jazz",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce01c",
+        "name": "Dixieland/New Orleans Jazz",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce01d",
+        "name": "Free/Avant Jazz",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce01e",
+        "name": "Fusion",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce01f",
+        "name": "General Jazz",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce020",
+        "name": "Japanese Fusion",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce021",
+        "name": "Japanese Jazz",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce022",
+        "name": "Jazz Vocals",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce023",
+        "name": "Latin",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce024",
+        "name": "Ragtime",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce025",
+        "name": "Smooth Jazz",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce026",
+        "name": "Swing Revival",
+        "topLevelGenre": "Jazz"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce027",
+        "name": "Afro-Cuban",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce028",
+        "name": "Brazillian",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce029",
+        "name": "General Latin",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce02a",
+        "name": "Latin Pop",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce02b",
+        "name": "Latin Rock",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce02c",
+        "name": "Mexican",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce02d",
+        "name": "Ranchero",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce02e",
+        "name": "Salsa/Merengue",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce02f",
+        "name": "South/Central American",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce030",
+        "name": "Spanish/Portugese",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce031",
+        "name": "Tejano/Norteno",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce032",
+        "name": "Tropical/Samba",
+        "topLevelGenre": "Latin"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce033",
+        "name": "Alternative Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce03f",
+        "name": "Black Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce034",
+        "name": "Black/Death Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce041",
+        "name": "Classic British Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce03e",
+        "name": "Funk Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce035",
+        "name": "General Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce036",
+        "name": "Gothic Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce037",
+        "name": "Grindcore",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce038",
+        "name": "Hardcore Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce039",
+        "name": "Heavy Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce040",
+        "name": "Pop Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce03a",
+        "name": "Pop/Hair Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce03b",
+        "name": "Progressive Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce03d",
+        "name": "Thrash Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce03c",
+        "name": "Thrash/Speed Metal",
+        "topLevelGenre": "Metal"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce042",
+        "name": "Ambient New Age",
+        "topLevelGenre": "New Age"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce043",
+        "name": "Environmental Music",
+        "topLevelGenre": "New Age"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce044",
+        "name": "General New Age",
+        "topLevelGenre": "New Age"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce045",
+        "name": "Meditation Music",
+        "topLevelGenre": "New Age"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce046",
+        "name": "Acoustic Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce04e",
+        "name": "Dance Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce047",
+        "name": "Disco",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce048",
+        "name": "European Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce049",
+        "name": "General Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce04a",
+        "name": "Japanese Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce04b",
+        "name": "Teen Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce04c",
+        "name": "Urban Crossover: Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce04d",
+        "name": "Western Pop",
+        "topLevelGenre": "Pop"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce05b",
+        "name": "Classic R&B/Soul",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce05c",
+        "name": "Classic Soul",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce059",
+        "name": "Contemporary R&B/Soul",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce054",
+        "name": "Funk",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce055",
+        "name": "General R&B",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce056",
+        "name": "Motown",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce057",
+        "name": "Soul",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce05a",
+        "name": "Urban",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce05d",
+        "name": "Urban AC",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce058",
+        "name": "Urban Crossover",
+        "topLevelGenre": "R&B"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce04f",
+        "name": "Dancehall",
+        "topLevelGenre": "Reggae"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce050",
+        "name": "Dub",
+        "topLevelGenre": "Reggae"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce051",
+        "name": "General Reggae",
+        "topLevelGenre": "Reggae"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce052",
+        "name": "Ragga",
+        "topLevelGenre": "Reggae"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce053",
+        "name": "Ska/Rock Steady",
+        "topLevelGenre": "Reggae"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce070",
+        "name": "60's Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce071",
+        "name": "70's Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce073",
+        "name": "Alternative Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce072",
+        "name": "Classic Hard Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce05e",
+        "name": "Classic Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce074",
+        "name": "Classic Soft Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce05f",
+        "name": "Folk Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce060",
+        "name": "Funk Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce061",
+        "name": "General Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce062",
+        "name": "Goth Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce063",
+        "name": "Grunge",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce064",
+        "name": "Hard Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce065",
+        "name": "Instrumental Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce066",
+        "name": "Jam Bands",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce067",
+        "name": "Japanese Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce068",
+        "name": "New Wave",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce069",
+        "name": "Progressive Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce06a",
+        "name": "Psychedelic Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce06b",
+        "name": "Rock & Roll",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce06c",
+        "name": "Ska Revival/3rd Wave",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce06d",
+        "name": "Soft Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce06e",
+        "name": "Southern Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce06f",
+        "name": "Surf Rock",
+        "topLevelGenre": "Rock"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce075",
+        "name": "Adult Film/Erotica",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce076",
+        "name": "Anime",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce077",
+        "name": "Film Score",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce078",
+        "name": "Film Soundtrack",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce079",
+        "name": "Game",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce07a",
+        "name": "General Soundtrack",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce07b",
+        "name": "Japanese General Soundtrack",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce07c",
+        "name": "Musicals/Broadway",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce07d",
+        "name": "Television Score",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce07e",
+        "name": "Television Soundtrack",
+        "topLevelGenre": "Soundtrack"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce07f",
+        "name": "General Unclassifiable",
+        "topLevelGenre": "Unclassifiable"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce080",
+        "name": "Japanese Unclassifiable",
+        "topLevelGenre": "Unclassifiable"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce081",
+        "name": "Aboriginal Australian/Didjeridu",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce082",
+        "name": "African",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce083",
+        "name": "Asian",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce084",
+        "name": "Caribbean",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce085",
+        "name": "Central Asian",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce086",
+        "name": "Classical Indian",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce087",
+        "name": "Eastern European",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce088",
+        "name": "Flamenco/Gypsy",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce089",
+        "name": "French",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce08a",
+        "name": "General Celtic",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce08b",
+        "name": "General World",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce08c",
+        "name": "German",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce08d",
+        "name": "Hawaiian",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce08e",
+        "name": "Indian Subcontinent",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce08f",
+        "name": "Irish Celtic",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce090",
+        "name": "Japanese Enka",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce091",
+        "name": "Japanese Folk",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce092",
+        "name": "Japanese Traditional (Minzoku)",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce093",
+        "name": "Jewish/Israeli",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce094",
+        "name": "Klezmer",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce095",
+        "name": "Middle East/Arabic",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce096",
+        "name": "Native American",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce097",
+        "name": "Oceania",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce098",
+        "name": "Polka",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce099",
+        "name": "Quebecois",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce09a",
+        "name": "Scandinavian",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce09b",
+        "name": "Western European",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce09c",
+        "name": "World Fusion",
+        "topLevelGenre": "World"
+    },
+    {
+        "id": "52b242c7742ffe962f1ce09d",
+        "name": "Zydeco/Cajun",
+        "topLevelGenre": "World"
+    }
+]
+</pre>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 2,
+    "errorMessage": "INVALID PARAMS",
+    "data": "userId not specified"
+}
+</pre>
+
+
+<h3>(3) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Unable to connect to the database."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

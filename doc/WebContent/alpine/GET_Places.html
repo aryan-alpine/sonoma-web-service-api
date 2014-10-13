@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>GET Places</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET Places</h1>
+
+<p>Retrieve the list of places associatied with a particular user.</p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/Places?userId=12345</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET so there is no body that needs to be described.<br/>
+Only the basic headers are sent.<br/>
+For example:</p>
+
+<pre>
+GET /Places?userId=12345 HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<table width="100%" border="1">
+
+<tr>
+<td>userId<br/>(optional)</td>
+<td>Which user's list of places do you want?</td>
+</tr>
+
+</table>
+
+<h2>Example Request</h2>
+
+<p>http://54.245.243.173/Places?userId=12345</p>
+
+<h2>Example Response</h2>
+
+<pre>
+[
+    {
+        "zipCode": null,
+        "address1": "1335 Brommer St",
+        "address2": null,
+        "appId": "TestMyplacelist",
+        "city": "Santa Cruz",
+        "userId": "myplacelist guest",
+        "createTime": 0,
+        "description": null,
+        "details1": null,
+        "deviceId": "9b804f5b-7700-402d-a7dd-a4b0d65a15ea",
+        "externalUrl": null,
+        "tracksId": null,
+        "fenceId": null,
+        "thumbnailUrl": "http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        "state": "CA",
+        "field1": null,
+        "field2": null,
+        "fullImageUrl": null,
+        "sharedWith": null,
+        "placeType3": null,
+        "lastModified": 0,
+        "latitude": 36.97175259999999,
+        "longitude": -121.9875722,
+        "nickname": null,
+        "notes": null,
+        "placeType2": null,
+        "placeName": "1335 Brommer St",
+        "placeType1": null,
+        "ordering": 0,
+        "isFavorite": 0,
+        "rank": 0,
+        "isDeleted": 0,
+        "fenceTransition": 0,
+        "fenceRadius": 0,
+        "timezone": 0,
+        "fenceExpires": 0,
+        "count": 0,
+        "_id": 1
+    },
+    {
+        "zipCode": null,
+        "address1": "1501 Jay St",
+        "address2": null,
+        "appId": "TestMyplacelist",
+        "city": "Rochester",
+        "userId": "myplacelist guest",
+        "createTime": 1372453951534,
+        "description": null,
+        "details1": null,
+        "deviceId": "9b804f5b-7700-402d-a7dd-a4b0d65a15ea",
+        "externalUrl": null,
+        "tracksId": null,
+        "fenceId": null,
+        "thumbnailUrl": "http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        "state": "NY",
+        "field1": null,
+        "field2": null,
+        "fullImageUrl": null,
+        "sharedWith": null,
+        "placeType3": null,
+        "lastModified": 1372453951534,
+        "latitude": 43.159389,
+        "longitude": -77.6619573,
+        "nickname": null,
+        "notes": null,
+        "placeType2": null,
+        "placeName": "1501 Jay St",
+        "placeType1": null,
+        "ordering": 0,
+        "isFavorite": 0,
+        "rank": 0,
+        "isDeleted": 0,
+        "fenceTransition": 0,
+        "fenceRadius": 0,
+        "timezone": 0,
+        "fenceExpires": 0,
+        "count": 0,
+        "_id": 2
+    },
+    {
+        "zipCode": null,
+        "address1": "126 Main St",
+        "address2": null,
+        "appId": "TestMyplacelist",
+        "city": "Lewiston",
+        "userId": "myplacelist guest",
+        "createTime": 1372455402005,
+        "description": null,
+        "details1": null,
+        "deviceId": "9b804f5b-7700-402d-a7dd-a4b0d65a15ea",
+        "externalUrl": null,
+        "tracksId": null,
+        "fenceId": null,
+        "thumbnailUrl": "http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        "state": "ME",
+        "field1": null,
+        "field2": null,
+        "fullImageUrl": null,
+        "sharedWith": null,
+        "placeType3": null,
+        "lastModified": 1372455402005,
+        "latitude": 44.09773149999999,
+        "longitude": -70.2194042,
+        "nickname": null,
+        "notes": null,
+        "placeType2": null,
+        "placeName": "126 Main St",
+        "placeType1": null,
+        "ordering": 0,
+        "isFavorite": 0,
+        "rank": 0,
+        "isDeleted": 0,
+        "fenceTransition": 0,
+        "fenceRadius": 0,
+        "timezone": 0,
+        "fenceExpires": 0,
+        "count": 0,
+        "_id": 3
+    },
+    {
+        "zipCode": null,
+        "address1": "165 Main St",
+        "address2": null,
+        "appId": "TestMyplacelist",
+        "city": "Schenevus",
+        "userId": "myplacelist guest",
+        "createTime": 1372455500834,
+        "description": null,
+        "details1": null,
+        "deviceId": "9b804f5b-7700-402d-a7dd-a4b0d65a15ea",
+        "externalUrl": null,
+        "tracksId": null,
+        "fenceId": null,
+        "thumbnailUrl": "http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        "state": "NY",
+        "field1": null,
+        "field2": null,
+        "fullImageUrl": null,
+        "sharedWith": null,
+        "placeType3": null,
+        "lastModified": 1372455500834,
+        "latitude": 42.5454234,
+        "longitude": -74.8409746,
+        "nickname": null,
+        "notes": null,
+        "placeType2": null,
+        "placeName": "165 Main St",
+        "placeType1": null,
+        "ordering": 0,
+        "isFavorite": 0,
+        "rank": 0,
+        "isDeleted": 0,
+        "fenceTransition": 0,
+        "fenceRadius": 0,
+        "timezone": 0,
+        "fenceExpires": 0,
+        "count": 0,
+        "_id": 4
+    },
+    {
+        "zipCode": null,
+        "address1": "Main St",
+        "address2": null,
+        "appId": "TestMyplacelist",
+        "city": "Geelong Wool Combing Ltd",
+        "userId": "myplacelist guest",
+        "createTime": 1372455744974,
+        "description": null,
+        "details1": null,
+        "deviceId": "9b804f5b-7700-402d-a7dd-a4b0d65a15ea",
+        "externalUrl": null,
+        "tracksId": null,
+        "fenceId": null,
+        "thumbnailUrl": "http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        "state": "Corio",
+        "field1": null,
+        "field2": null,
+        "fullImageUrl": null,
+        "sharedWith": null,
+        "placeType3": null,
+        "lastModified": 1372455744974,
+        "latitude": -38.0536605,
+        "longitude": 144.3777071,
+        "nickname": null,
+        "notes": null,
+        "placeType2": null,
+        "placeName": "Main St",
+        "placeType1": null,
+        "ordering": 0,
+        "isFavorite": 0,
+        "rank": 0,
+        "isDeleted": 0,
+        "fenceTransition": 0,
+        "fenceRadius": 0,
+        "timezone": 0,
+        "fenceExpires": 0,
+        "count": 0,
+        "_id": 5
+    }
+]
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

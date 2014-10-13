@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Alpine RESTful services</title>
+   
+<link rel="stylesheet" type="text/css" href="css/main111.css">
+</head>
+<body>
+  
+<h1>Alpine REST API</h1>
+  
+<br/>
+  
+<h2>Purpose</h2>
+  
+<p>The purpose of this documentation is to provide client developers (iPhone, android, other)<br/>
+with everything they need to be able to use Alpine RESTful services in their apps.</p>
+  
+<h2>Pre-requisite knowledge</h2>
+  
+<p>This service specification assumes that the reader has a solid grounding 
+in the <a href="1_prerequisites.html">pre-requisite technologies</a>.</p>
+    
+<h2>Common behaviors</h2>
+  
+<p>All alpine services exhibit certain <a href="2_common_behaviors.html">common behaviors</a>. <br/>
+Users should familiarize themselves with these common behaviors.</p>
+ 
+<h2>Recent changes</h2>
+  
+<p>Recent <a href="changes.html">changes</a> made to the API.</p>
+ 
+ 
+ 
+<br/>
+<hr/>
+<h1>Our services</h1>
+
+<h2>Current</h2>
+<ul>
+<li><a href="#crossApp">RESTful Services: Cross-Application</a></li>
+<li><a href="#sonomaLogger">RESTful Services: Sonoma Logger</a></li>
+<li><a href="#sonoma">RESTful Services: Sonoma</a></li>
+</ul>
+
+<h2>Deprecated</h2>
+
+<ul>
+<li><a href="#legacy">RESTful Services: Legacy</a></li>
+</ul>
+
+<h2>Discontinued</h2>
+
+<ul>
+<li><a href="#flashTask">RESTful Services: FlashTask</a></li>
+<li><a href="#snapGas">RESTful Services: Snap Gas</a></li>
+<li><a href="#vehicleRecall">RESTful Services: Vehicle Recall</a></li>
+</ul>
+
+<br/><hr/>
+<a name="crossApp"></a>
+<h1>Cross-Application</h1>
+<h2>RESTful Services</h2>
+
+<p>These services are not application specific and can be used by all applications.<br/>
+<b>https://test.aosvapps.com/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test.aosvapps.com/<i>account</i></b><br/>
+</p>
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+<!-- 
+  <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_deviceAccount.html">deviceAccount</a></td>
+    <td>Create a device account.</td>
+    <td>None</td>
+  </tr>
+ -->  
+  <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_account.html">account</a></td>
+    <td>Create a user account.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="alpine/GET_account.html">account</a></td>
+    <td>Read the details of a specific user account.</td>
+    <td>User</td>  
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="alpine/GET_account_password.html">account/password</a></td>
+    <td>Reset the password for a specific user account.</td>
+    <td>None</td> 
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="alpine/PUT_account.html">account</a></td>
+    <td>Update the details of a specific user account.</td>
+    <td>User</td> 
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="alpine/DELETE_account.html">account</a></td>
+    <td>Remove a specific user account.</td>
+    <td>User</td> 
+  </tr>
+  
+<!-- 
+
+  <tr>
+    <td>POST</td>
+    <td><a href="POST_DeviceLogEntries.html">DeviceLogEntry</a></td>
+    <td>Post one or more device log entries to the server.</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="GET_DeviceLogEntries.html">DeviceLogEntry</a></td>
+    <td>Retrieve up to 100 device log entries.</td>
+  </tr>
+
+ -->
+
+  <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_deviceLogEntries2.html">deviceLogEntries2</a></td>
+    <td>Post one or more device log entries to the server.<br/>
+    Version 2 of the logging format.</td>
+    <td>Device (future)</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_image.html">image</a></td>
+    <td>Post a base64 encoded image to the server.</td>
+    <td>Device (future)</td> 
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="alpine/GET_image.html">image</a></td>
+    <td>Retrieve an image that has been stored uploaded to the server.</td>
+    <td>None</td>    
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="alpine/GET_messages.html">messages</a></td>
+    <td>GET a list of messages for a particular application for a particular user of a particular type.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_message.html">message</a></td>
+    <td>Send a message to one or more recipients via one or more transport mechanisms {sms, email, android, iphone}.</td>
+    <td>User</td>
+  </tr>  
+ 
+</tbody>
+</table> 
+  
+
+<br/><hr/>
+<a name="sonomaLogger"></a>
+<h1>Sonoma Logger</h1>
+<h2>RESTful Services</h2>
+  
+<p>These services belong to the Sonoma application.<br/>
+<b>https://test1log.aosvapps.com/sonomaLogger/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test1log.aosvapps.com/sonomaLogger/appEvents</b><br/>
+</p>
+
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonomaLogger/POST_appEvents.html">appEvents</a></td>
+    <td>Save application events to the server.</td>
+    <td>Device</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonomaLogger/GET_sessions.html">sessions</a></td>
+    <td>Get a list of recent sessions for a deviceId.</td>
+    <td>Device</td>
+  </tr>
+
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonomaLogger/GET_session.html">session</a></td>
+    <td>Get the detailed history of appEvents for the specified sessionId.</td>
+    <td>Device</td>
+  </tr>
+  
+</tbody>
+</table>
+
+
+
+<br/><hr/>
+<a name="sonoma"></a>
+<h1>Sonoma</h1>
+<h2>RESTful Services</h2>
+  
+<p>These services belong to the Sonoma application.<br/>
+<b>https://test.aosvapps.com/sonoma/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test.aosvapps.com/sonoma/<i>eq</i></b><br/>
+</p>
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_alpineSong.html">alpineSong</a></td>
+    <td>Get details of an individual song from the master song library.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_song.html">song</a></td>
+    <td>Get details of an individual song from the user's song library.</td>
+    <td>User</td>
+  </tr>
+  
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_songs.html">songs</a></td>
+    <td>Get details for a list of songs.</td>
+    <td>User</td>
+  </tr>
+
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_songLibraries.html">songLibraries</a></td>
+    <td>Get a list of all song libraries owned by a particular user.</td>
+    <td>User</td>
+  </tr>
+
+
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_songLibrary.html">songLibrary (current version)</a></td>
+    <td>Create a library of songs for a specific device on the server.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_songLibrary2.html">songLibrary (new version)</a></td>
+    <td>Create a library of songs for a specific device on the server.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_songLibrary.html">songLibrary</a></td>
+    <td>Get a list of all songs in a particular library from the server.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="sonoma/PUT_songLibrary.html">songLibrary</a></td>
+    <td>Add, update or delete songs from the specified song library.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="sonoma/DELETE_songLibrary.html">songLibrary</a></td>
+    <td>Delete an entire song library on the server.
+    </td>
+    <td>User</td>
+  </tr>
+
+
+</tbody>
+</table>  
+
+
+<br/><hr/>
+<a name="sonoma2"></a>
+<h1>Sonoma</h1>
+<h2>RESTful Services (Not being used)</h2>
+  
+<p>These services belong to the Sonoma application.<br/>
+<b>https://test.aosvapps.com/sonoma/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test.aosvapps.com/sonoma/<i>eq</i></b><br/>
+</p>
+
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_eq.html">eq</a></td>
+    <td>Save new equalizer settings to the server.</td>
+    <td>Device</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_eqs.html">eqs</a></td>
+    <td>Get a list of all equalizer settings for a particular user.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_eq.html">eq</a></td>
+    <td>Get a single equalizer setting.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="sonoma/PUT_eq.html">eq</a></td>
+    <td>Update existing equalizer settings.</td>
+    <td>Device</td>
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="sonoma/DELETE_eq.html">eq</a></td>
+    <td>Delete existing equalizer settings.<br/>
+    NOTE: What happens when another user selects to view the settings that were used to play 
+    a song if we've deleted the settings?</td>
+    <td>User</td>
+  </tr>
+
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_eqRecommendations.html">eqRecommendations</a></td>
+    <td><b>ADMIN ONLY</b><br/>
+    Save new set of equalizer settings recommendations for a specific genre.</td>
+    <td>User</td>
+  </tr>
+  
+
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_eqRecommendations.html">eqRecommendations</a></td>
+    <td>Get a list of all equalizer settings recommendations for all genres.</td>
+    <td>None</td>
+  </tr>
+  
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_eqRecommendations.html">eqRecommendations/genre</a></td>
+    <td>Get a list of all equalizer settings recommendations for a specific genre.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_eqRecommendations.html">eqRecommendations/artist</a></td>
+    <td>Get a list of all equalizer settings recommendations for a specific artist.<br/>
+    Use only if you do not know the genre.<br/>
+    This service looks up the genres that the artist fits into, and then sends back the recommended
+    equalizer settings for each of these.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="sonoma/PUT_eqRecommendations.html">eqRecommendations</a></td>
+    <td><b>ADMIN ONLY</b><br/>
+    Update an existing set of equalizer settings recommendations for a specific genre.</td>
+    <td>User</td>
+  </tr>
+  
+  <tr>
+    <td>DELETE</td>
+    <td><a href="sonoma/DELETE_eqRecommendations.html">eqRecommendations</a></td>
+    <td><b>ADMIN ONLY</b><br/>
+    Delete an existing set of equalizer settings recommendations for a specific genre.</td>
+    <td>User</td>
+  </tr>  
+
+  
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_event.html">event</a></td>
+    <td>user listened to a song.<br/>
+    user rated music in iTunes.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_events.html">events</a></td>
+    <td>Get a list of recent items from a users newsfeed.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_friend.html">friend</a></td>
+    <td>User selects to add another user to their friend list.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="sonoma/DELETE_friend.html">friend</a></td>
+    <td>User selects to remove a friend from their friend list.</td>
+    <td>User</td>
+  </tr>
+
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_notifications.html">notifications</a></td>
+    <td>Get notifications from the server.</td>
+    <td>User</td>
+  </tr>
+
+
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_songRatings.html">songRatings</a></td>
+    <td>
+    Save one or more song ratings submitted by a particular user.</td>
+    <td>User</td>
+  </tr>
+  
+
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_songRecommendations.html">songRecommendations</a></td>
+    <td>Get a list of song recommendations for a particular user.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="sonoma/POST_sonogramImage.html">sonogramImage</a></td>
+    <td>Post a base64 encoded image to the server.</td>
+    <td>Device (future)</td> 
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_sonogramImage.html">sonogramImage</a></td>
+    <td>Retrieve an image that has been stored uploaded to the server.</td>
+    <td>None</td>    
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="sonoma/GET_subGenres.html">subGenres</a></td>
+    <td>Get a complete list of all valid music sub genres and the top level genres they map to.</td>
+    <td>None</td>
+  </tr>
+
+
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+<br/><hr/>
+<a name="legacy"></a>
+<h1>Legacy</h1>
+<h2>RESTful Services</h2>
+
+<p>These services belong to the Commuter Hero and Pin'N Find applications:<br/>
+<b>https://test.aosvapps.com/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test.aosvapps.com/<i>alternateCommuteRoute</i></b><br/>
+</p>
+  
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody> 
+  
+<tr>
+  <td>GET</td>
+  <td><a href="alpine/GET_alternateCommuteRoute.html">alternateCommuteRoute</a></td>
+  <td>Get an alternate travel plan.<br/>
+  Previously known as <span style="color:red">"CMHgetAlternateCommuteRoute"</span></td>
+  <td>NO</td>
+</tr>
+
+<tr>
+  <td>GET</td>
+  <td><a href="alpine/GET_leaderboard.html">leaderboard</a></td>
+  <td>Get the top 10 people in the leaderboard.<br/>
+  Previously known as <span style="color:red">"CMHLeaderboard"</span></td>
+  <td>NO</td>
+</tr>
+
+ <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_leaderboard.html">leaderboard</a></td>
+    <td>Create leaderboard stats of the user.</td>
+    <td>NO</td>
+ </tr>
+
+ <tr>
+    <td>PUT</td>
+    <td><a href="alpine/PUT_leaderboard.html">leaderboard</a></td>
+    <td>Update the leaderboard stats of the user.</td>
+    <td>NO</td>
+ </tr>
+
+
+
+ <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_Places.html">Places</a></td>
+    <td>Post one or more places to the server.</td>
+    <td>NO</td>
+ </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="alpine/GET_Places.html">Places</a></td>
+    <td>Retrieve the list of places for a particular user.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="alpine/POST_pointsOfInterest.html">pointsOfInterest</a></td>
+    <td>
+Even though we are POSTING, this service is meant to GET a list of points of interest</br/>
+near a particular location,<br/>
+at a particular time,<br/>
+at a particular temperature,<br/>
+for a particular user.</br/>
+Previously known as <span style="color:red">"/re"</span>
+    </td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>  
+    <td><a href="alpine/GET_routes.html">routes</a></td>
+    <td>Get a list of possible routes between 2 places.<br/>
+    Previously known as <span style="color:red">"CMHgetDrivingSteps"</span></td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="alpine/GET_routeHighlights.html">routeHighlights</a></td>
+    <td>Get a list of "highlights" (as [lat,lng] coordinates) along a route between 2 [lat,lng] coordinates.<br/>
+    Previously known as <span style="color:red">"CMHgetRouteHighlights"</span></td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>  
+    <td><a href="alpine/GET_weather.html">weather</a></td>
+    <td>Get the weather for a particular location.<br/>
+    Previously known as <span style="color:red">"/re/weather"</span></td>
+    <td>NO</td>
+  </tr>
+
+</tbody>
+</table>  
+
+
+
+
+  
+<br/><hr/>
+<a name="flashTask"></a>
+<h1>FlashTask</h1>
+<h2>RESTful Services</h2>
+
+<p>These services are not application specific and can be used by all applications.<br/>
+<b>https://test.aosvapps.com/flashTask/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test.aosvapps.com/flashTask/<i>favor</i></b><br/>
+</p>
+
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+  
+  <tr>
+    <td>POST</td>
+    <td><a href="flashTask/POST_favor.jsp">favor</a></td>
+    <td>Request a favor from another user.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="flashTask/GET_favors.jsp">favors</a></td>
+    <td>Retrieve a list of favors (1) you have asked of others or (2) have been asked of you.</td>
+    <td>User</td>  
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="flashTask/PUT_favor.jsp">favor</a></td>
+    <td>Update the status of a favor request.<br/>
+    Update options include ...<br/>
+    The user who requested the favor, may <b>cancel</b> at any time.<br/>
+    The user who received the request, may <b>accept</b>, <b>reject</b> or mark it as <b>completed</b>.</td>
+    <td>User</td> 
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="flashTask/DELETE_favor.jsp">favor</a></td>
+    <td>Remove a favor request.</td>
+    <td>User</td> 
+  </tr>
+  
+</tbody>
+</table>  
+  
+
+
+
+<br/><hr/>
+<a name="snapGas"></a>
+<h1>SnapGas</h1>
+<h2>RESTful Services</h2>
+  
+<p>These services belong to the SnapGas application.<br/>
+<b>https://test.aosvapps.com/gas/<i>[serviceName]</i></b><br/>
+Example:<br/>
+<b>https://test.aosvapps.com/gas/<i>bargainWatch</i></b><br/>
+</p>
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+
+
+  <tr>
+    <td>POST</td>
+    <td><a href="gas/POST_bargainWatch.html">bargainWatch</a></td>
+    <td>Create a bargainWatch to be notified of low gas prices near you.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="gas/GET_bargainWatches.html">bargainWatches</a></td>
+    <td>Create a bargainWatch to be notified of low gas prices near you.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="gas/PUT_bargainWatch.html">bargainWatch</a></td>
+    <td>Update your bargainWatch to change your notification preferences.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="gas/DELETE_bargainWatch.html">bargainWatch</a></td>
+    <td>Remove a bargainWatch to stop receiving notifications.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="gas/PUT_station1.jsp">station/[stationId]</a></td>
+    <td>Update current gas prices at a particular gas station.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="gas/PUT_station2.jsp">station/[stationId]/[imageType]/[imageFormat]</a></td>
+    <td>Update an image for a gas station.</td>
+    <td>User</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>  
+    <td><a href="gas/GET_station.html">station</a></td>
+    <td>Get the gas price (submitted by an Alpine user) at a particular gas station.</td>
+    <td>None</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>  
+    <td><a href="gas/GET_stations.html">stations</a></td>
+    <td>Get a list of gas prices from stations near a particular geographic location.</td>
+    <td>None</td>
+  </tr>
+  
+</tbody>
+</table>
+
+
+<br/><hr/>
+<a name="vehicleRecall"></a>
+<h1>Vehicle Recall</h1>
+<h2>RESTful Services</h2> 
+  
+<p>These services belong to the Vehicle Recall application.<br/>
+<b>https://test.aosvapps.com/vehicleRecall/<i>[serviceName]</i></b><br/>
+Example(s):<br/>
+<b>https://test.aosvapps.com/vehicleRecall/<i>vehicle</i></b><br/>
+<b>https://test.aosvapps.com/vehicleRecall/<i>vehicles</i></b><br/>
+<b>https://test.aosvapps.com/vehicleRecall/<i>recall</i></b><br/>
+<b>https://test.aosvapps.com/vehicleRecall/<i>recalls</i></b><br/>
+</p>
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+    <th>Auth Req'd?</th>
+  </tr>
+</thead>
+<tbody>
+
+
+  <tr>
+    <td>POST</td>
+    <td><a href="vehicleRecall/POST_vehicles.html">vehicles</a></td>
+    <td>Associate one or more vehicles -<br/>
+    each with a specific make, model and year - <br/>
+    to a particular Google Cloud Messaging registration id.<br/>
+    This will enable us to send them notifications of recalls.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>
+    <td><a href="vehicleRecall/GET_vehicles.html">vehicles</a></td>
+    <td>Get the vehicles associated to a particular GCM registration id.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="vehicleRecall/PUT_vehicles.html">vehicles</a></td>
+    <td>Update the list of vehicles associated with a particular
+    GCM registration id.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="vehicleRecall/DELETE_vehicles.html">vehicles</a></td>
+    <td>Remove a GCM registration id and the list of vehicles 
+    associated with it.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>POST</td>
+    <td><a href="vehicleRecall/POST_recalls.html">recalls</a></td>
+    <td><b>ADMIN ONLY</b><br/>Add new recall a list of one or more recalls. <br/>
+    For each individual recall - for a specific vehicle (make, model, year) - <br/>
+    send a GCM notification to everyone affected.</td>
+    <td>YES</td>
+  </tr>
+
+  <tr>
+    <td>PUT</td>
+    <td><a href="vehicleRecall/PUT_recall.html">recall</a></td>
+    <td><b>ADMIN ONLY</b><br/>Update an individual recall record.</td>
+    <td>YES</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>  
+    <td><a href="vehicleRecall/GET_recall.html">recall</a></td>
+    <td>Get the details of a specific recall notification.<br/>
+    This is the service that client should call for each GCM notification it receives.<br/>
+    The GCM notification will contain the recordId that should be used when calling this service.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>GET</td>  
+    <td><a href="vehicleRecall/GET_recalls.jsp">recalls</a></td>
+    <td>Get the list of recalls for a vehicle with a specific make, model and year.</td>
+    <td>NO</td>
+  </tr>
+
+  <tr>
+    <td>DELETE</td>
+    <td><a href="vehicleRecall/DELETE_recall.html">recall</a></td>
+    <td><b>ADMIN ONLY</b><br/>Delete a specific recall. </td>
+    <td>YES</td>
+  </tr>
+
+</tbody>
+</table>
+  
+  
+<h2>Notifications</h2>  
+  
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Android?</th>
+    <th>iPhone?</th>
+  </tr>
+</thead>
+<tbody>
+
+  <tr>
+    <td><a href="vehicleRecall/NOTIFICATION_newRecall.html">New recall</a></td>
+    <td>A new recall has been issued for your vehicle.</td>
+    <td>YES</td>
+    <td>NO</td>
+  </tr>
+
+</tbody>
+</table>
+
+  
+
+  
+  
+<br/><br/><br/>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>  
+</body>
+</html>

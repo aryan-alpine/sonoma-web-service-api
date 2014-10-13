@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Build the WAR file" basedir="." default="buldWar">
+    
+  <property name="warfile" value="doc"/>  
+  <property name="web.dir" location="WebContent"/>
+  <property name="src.dir" location="src"/>  
+  <property name="build.dir" location="build2\classes"/>    
+  <property name="appserver.lib" location="/Users/alexryan/apache-tomcat/apache-tomcat-7.0.47/lib"/>	
+		
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <mkdir dir="${build.dir}"/>
+  </target>
+  
+  
+  <target name="compile" depends="clean">
+      
+    
+    <echo message="{web.dir}/WEB-INF/lib=${web.dir}/WEB-INF/lib"/>  
+    <echo message="{build.dir}=${build.dir}"/>        
+      
+	  <path id="master-classpath">
+	    <fileset dir="${web.dir}/WEB-INF/lib">
+	      <include name="*.jar"/>
+	    </fileset>
+	    <fileset dir="${appserver.lib}">
+	      <include name="servlet*.jar"/>
+	    </fileset>
+	    <pathelement path="${build.dir}"/>
+	  </path>	  
+      
+    <javac target="1.6" destdir="${build.dir}" verbose="true">
+      <src path="${src.dir}"/>
+      <classpath refid="master-classpath"/>
+    </javac>  
+  </target>
+		
+  <target name="buldWar" >
+    <delete file="${warfile}.war" />
+    <war destfile="${warfile}.war" webxml="WebContent/WEB-INF/web.xml" update="true">
+       <fileset dir="WebContent">
+           <exclude name="WEB-INF/web.xml"/>
+       </fileset>
+    </war>
+  </target>
+    
+</project>

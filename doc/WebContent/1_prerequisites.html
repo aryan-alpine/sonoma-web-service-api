@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Pre-requisites</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>Alpine REST API</h1>
+
+<br/>
+
+<br/><hr/>
+<h1>Pre-requisites</h1>
+
+<p>In order to understand this documentation, you must have a solid understanding of:</p>
+<a href="#http">(1) HTTP: Hypertext Transport Protocol</a><br/>
+<a href="#rest">(2) REST: Representational State Transfer</a><br/>
+<a href="#http">(3) JSON: JavaScript Object Notation</a><br/>
+
+<br/><hr/>
+<a name="http"></a>
+<h2>(1) HTTP: Hypertext Transport Protocol</h2>
+
+<p>You must know, for example:</p>
+
+<p>HTTP requests and responses are both documents that are structured into 2 parts:<br/>
+(1) HTTP Headers<br/>
+(2) HTTP Body</p>
+
+<h3>(1) <b>HTTP Headers</b>:<br/></h3>
+
+A collection of name/value pairs specified by the HTTP specification.<br/>
+
+
+<h4>Request Headers</h4>
+You should be familiar with the most common types of HTTP Headers used in HTTP requests ...<br/>
+The most important of the request headers is <b>the request method</b><br/>
+
+<h5>Request method (mandatory)</h5>
+Example request methods include:  <b>POST, GET, PUT & DELETE</b><br/>
+(Note: In REST these methods correspond to <b>CREATE, READ, UPDATE & DELETE: CRUD</b>)
+
+<h4>Response Headers</h4>
+You should be familiar with the most common types of HTTP Headers used in HTTP responses ...<br/>
+The most important of the response headers is <b>the response code</b><br/>
+
+<h5>Response Codes (mandatory)</h5>
+The first line of the HTTP Response will always contain a response code.<br/>
+
+
+Example response codes indicating success:<br/>
+<b>HTTP/1.0 200 OK</b><br/>
+<b>HTTP/1.0 201 Created</b><br/>
+<br/>
+Example response codes indicating failure:<br/>
+<b>HTTP/1.0 400 Bad Request</b><br/>
+<b>HTTP/1.0 500 Server Error</b><br/><br/>
+
+Here is a list of all possible HTTP response codes:<br/>
+<a href="http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">HTTP Status Code Registry</a><br/><br/>
+<br/>
+
+If the service just "GETs" data, the response code to indicate success will usually be <b>200: OK</b><br/>
+If the service just "POSTs" or "PUTs" data, the response code to indicate success will usually be <b>201: Created</b>.<br/>
+3XX response codes usually indicate that a networking error of some sort.<br/>
+4XX response codes usually indicate that an error the occurred because YOU did something wrong.<br/>
+5XX response codes usually indicate that an error that occurred because something broke on the server.<br/>
+<br/>
+Client code should be able to handle any response code delivered by the server.<br/>
+<br/>
+For each service in this specification, the list of possible response codes returned by the service
+is specified. Client code should be prepared to handle all of these gracefully.<br/>
+In addition, other response code can be returned by proxy servers, web servers, etc.<br/>
+Client code should be able to handle these as well.<br/>
+
+
+
+
+<h3>(2) <b>HTTP Body</b>:<br/></h3>
+May contain one of a variety of types of content or none at all.<br/>
+The type of content contained in the body should be specified by the <b>Content-Type</b> header.<br/>
+
+<br/>
+The most common Content-Types used in Alpine Restful Services include:<br/>
+<b>Content-Type: application/json</b><br/>
+<b>Content-Type: image/jpeg</b><br/>
+Con<b>tent-Type: image/png</b><br/><br/>
+
+A full listing of all possible Content-Types can be found here:<br/>
+<a href="http://en.wikipedia.org/wiki/MIME_type">http://en.wikipedia.org/wiki/MIME_type</a><br/><br/>
+<br/>For example:<br/>
+JSON formatted request or response data<br/>
+Image data<br/>
+HTML, CSS, JavaScript, etc.
+
+
+
+
+
+This represents a minimum of what you need to know about HTTP.<br/>
+More in-depth knowledge is recommended.<br/>
+If you don't know the answers to these questions, you need to study.<br/><br/>
+
+<a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol</a>
+<br/><a href="http://www.ietf.org/rfc/rfc2616.txt">RFC2616: Hypertext Transfer Protocol -- HTTP/1.1</a>
+
+<br/><hr/>
+<a name="rest"></a>
+<h2>(2) REST: Representational State Transfer</h2>
+
+If you don't know what REST is, you need to study.<br/><br/>
+
+<a href="http://en.wikipedia.org/wiki/Representational_state_transfer">
+http://en.wikipedia.org/wiki/Representational_state_transfer</a>
+<br/>
+
+<br/><hr/>
+<a name="json"></a>
+<h2>(3) JSON: JavaScript Object Notation</h2>
+
+The HTTP BODY of both the HTTP Requests and Responses of most Alpine services 
+consists of JSON formated data.<br/>
+If you don't know what JSON is, you need to study.<br/><br/>
+
+<a href="http://en.wikipedia.org/wiki/JSON">
+http://en.wikipedia.org/wiki/JSON</a>
+<br/>
+<br/>
+
+
+
+<br/><br/><br/>
+
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET eq</h1>
+
+<p>Get a single equalizer setting.<br/>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET.<br/>
+For example:</p>
+
+<pre>
+GET /eq/51f973830d861c2c5c626910 HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<p>One way to pass data to a service is via the parameters of the "request method"
+in the "headers" section of the HTTP request.<br/>
+This is most frequently done when the request method is GET or DELETE.<br/>
+<b>GET eq</b> utilizes this approach.</p>
+
+
+
+<h3>Example</h3>
+
+<pre>
+GET /eq/51f973830d861c2c5c626910 HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<h3>Description</h3>
+
+<p>For each individual input parameter ...</p>
+
+<table width="100%" border="1">
+
+<tr>
+<td>id<br/>(required)</td>
+<td>
+The unique userId identify the equalizer settings.<br/>
+</tr>
+
+</table>
+
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<p>Another way to pass data to a service is via the body of the HTTP request.<br/>
+This method is not used when the request method is GET.<br/>
+This service does NOT pass data in this fashion..</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>200 Success</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+3 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 200: &quot;Success&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 200 Success
+
+{
+    "id": "51f973830d861c2c5c626910",
+    "name": "Metallica Settings",
+    "type": "Music",
+    "genre": "Hard Rock",
+    "numberOfBands": 10,
+    "band1": {
+        "frequency": 31.25,
+        "value": 1
+    },
+    "band2": {
+        "frequency": 63.5,
+        "value": 2
+    },
+    "band3": {
+        "frequency": 125,
+        "value": 3
+    },
+    "band4": {
+        "frequency": 250,
+        "value": 4
+    },
+    "band5": {
+        "frequency": 500,
+        "value": 5
+    },
+    "band6": {
+        "frequency": 1000,
+        "value": 6
+    },
+    "band7": {
+        "frequency": 2000,
+        "value": 7
+    },
+    "band8": {
+        "frequency": 4000,
+        "value": 8
+    },
+    "band9": {
+        "frequency": 8000,
+        "value": 9
+    },
+    "band10": {
+        "frequency": 12000,
+        "value": 1
+    }
+    "lastUpdate": 1379699445551
+}
+
+</pre>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 2,
+    "errorMessage": "INVALID PARAMS",
+    "data": "id not specified"
+}
+</pre>
+
+
+<h3>(3) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Unable to connect to the database."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+package com.alpine.rest;
+
+import java.io.IOException;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+import com.alpine.data.http.common.RestError;
+import com.alpine.data.http.sonoma.eq.get.response.Band;
+import com.alpine.data.http.sonoma.eq.get.response.GetEqResponse;
+import com.google.gson.Gson;
+
+public class GetEq {
+
+  private static Logger logger = Logger.getLogger(GetEq.class.getName());
+  
+  
+  /**
+   * @param args
+   */
+  public static void main(String[] args) {
+
+    DefaultHttpClient httpClient = new DefaultHttpClient();
+    //String url = "http://localhost:8080/sonoma/eq/5261ab190d86fc13754787ae";
+    //HttpGet httpGet = new HttpGet(url);
+    HttpGet httpGet = new HttpGet("/sonoma/eq/5261ab190d86fc13754787ae");
+    HttpHost targetHost = new HttpHost("localhost", 8080, "http");    
+
+    /////////////////////////////////////////////////////////////////////////
+    // Execute the request!!!
+    /////////////////////////////////////////////////////////////////////////
+    
+    HttpResponse response = null;
+    try {
+      //response = httpclient.execute(httpGet);
+      //response = httpclient.execute(targetHost, httpget, localcontext);
+      response = httpClient.execute(targetHost, httpGet);
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    // The underlying HTTP connection is still held by the response object
+    // to allow the response content to be streamed directly from the network
+    // socket.
+    // In order to ensure correct deallocation of system resources
+    // the user MUST either fully consume the response content or abort request
+    // execution by calling HttpGet#releaseConnection().
+
+    try {
+
+      /////////////////////////////////////////////////////////////////////////
+      // What's in the response headers?
+      /////////////////////////////////////////////////////////////////////////
+      
+      StatusLine statusLine = response.getStatusLine();
+      int statusCode = statusLine.getStatusCode();
+      logger.info("statusCode=|" + statusCode + "|");
+
+      Header[] headers = response.getAllHeaders();
+      for (Header header : headers) {
+        String name = header.getName();
+        String value = header.getValue();
+        logger.info(name + ": " + value);
+      }
+      
+      /////////////////////////////////////////////////////////////////////////
+      // What's in the body?
+      /////////////////////////////////////////////////////////////////////////
+      HttpEntity entity = response.getEntity();
+      String json2 = EntityUtils.toString(entity);
+      logger.info("json2=|" + json2 + "|");
+      
+      switch (statusCode) {
+      
+        case 200:
+          handleSuccess(json2);
+          break;
+          
+        case 400:
+          handleError(json2);
+          break;
+          
+        case 500:
+          handleError(json2);
+          break;
+        
+      }      
+
+      
+      // Header contentEncodingHeader = entity1.getContentEncoding();
+      EntityUtils.consume(entity);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      httpGet.releaseConnection();
+    }
+
+
+  } // main
+  
+  
+  /**
+   * 
+   * @param json2
+   */
+  public static void handleSuccess(String json) {
+
+    Gson gson = new Gson();
+    GetEqResponse getEqResponse = new GetEqResponse();
+    getEqResponse = new Gson().fromJson(json, GetEqResponse.class);
+
+    String id            = getEqResponse.getId();
+    String userId        = getEqResponse.getUserId();
+    String name          = getEqResponse.getName();
+    String type          = getEqResponse.getType();
+    String genre         = getEqResponse.getGenre();
+    String equalizerType = getEqResponse.getEqualizerType();
+    Long created         = getEqResponse.getCreated();
+    Long updated         = getEqResponse.getUpdated();
+    Band band1           = getEqResponse.getBand1();
+    Band band2           = getEqResponse.getBand2();    
+    Band band3           = getEqResponse.getBand3();
+    Band band4           = getEqResponse.getBand4();
+    Band band5           = getEqResponse.getBand5();
+    Band band6           = getEqResponse.getBand6();
+    Band band7           = getEqResponse.getBand7();
+    Band band8           = getEqResponse.getBand8();
+    Band band9           = getEqResponse.getBand9();
+    Band band10          = getEqResponse.getBand10();
+    
+    DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+    DateTime dt1 = new DateTime(created);
+    String created2 = fmt.print(dt1);
+    DateTime dt2 = new DateTime(updated);
+    String updated2 = fmt.print(dt2);
+    
+    logger.info("----------------------------------------");
+    logger.info("             id=|" + id + "|");
+    logger.info("         userId=|" + userId + "|");
+    logger.info("           name=|" + name + "|");
+    logger.info("           type=|" + type + "|");
+    logger.info("  equalizerType=|" + equalizerType + "|");
+    logger.info("      band1.fre=|" + band1.getFrequency() + "|");
+    logger.info("      band1.val=|" + band1.getValue() + "|");
+    logger.info("      band2.fre=|" + band2.getFrequency() + "|");
+    logger.info("      band2.val=|" + band2.getValue() + "|");   
+    logger.info("      band3.fre=|" + band3.getFrequency() + "|");
+    logger.info("      band3.val=|" + band3.getValue() + "|");
+    logger.info("      band4.fre=|" + band4.getFrequency() + "|");
+    logger.info("      band4.val=|" + band4.getValue() + "|");
+    logger.info("      band5.fre=|" + band5.getFrequency() + "|");
+    logger.info("      band5.val=|" + band5.getValue() + "|");
+    logger.info("      band6.fre=|" + band6.getFrequency() + "|");
+    logger.info("      band6.val=|" + band6.getValue() + "|");
+    logger.info("      band7.fre=|" + band7.getFrequency() + "|");
+    logger.info("      band7.val=|" + band7.getValue() + "|");
+    logger.info("      band8.fre=|" + band8.getFrequency() + "|");
+    logger.info("      band8.val=|" + band8.getValue() + "|");
+    logger.info("      band9.fre=|" + band9.getFrequency() + "|");
+    logger.info("      band9.val=|" + band9.getValue() + "|");
+    logger.info("      band10.fre=|" + band10.getFrequency() + "|");
+    logger.info("      band10.val=|" + band10.getValue() + "|");
+    logger.info("        created=|" + created + "|");
+    logger.info("        created=|" + created2 + "|");    
+    logger.info("        updated=|" + updated + "|");
+    logger.info("        updated=|" + updated2 + "|");
+    
+  } // handleSuccess
+ 
+  /**
+   * 
+   */
+  public static void handleError(String json2) {
+    Gson gson = new Gson();
+    RestError restError = gson.fromJson(json2, RestError.class);
+
+    logger.info("errorCode=|" + restError.getErrorCode() + "|");
+    logger.info("errorMessage=|" + restError.getErrorMessage() + "|");  
+    logger.info("data=|" + restError.getData() + "|"); 
+  }
+
+}
+
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

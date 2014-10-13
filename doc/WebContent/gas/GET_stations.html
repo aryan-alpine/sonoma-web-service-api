@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET stations</h1>
+
+<p>Get a list of gas prices at gas stations near a particular GPS location.</p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/stations</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET so there is no body that needs to be described.<br/>
+Only the basic headers are sent.<br/>
+For example:</p>
+
+<pre>
+GET /stations/radius/37.373596/-122.020500/2/pre/price/69r72p9zpe.json HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<table width="100%" border="1">
+
+<tr>
+<td>longitude<br/>(required)</td>
+<td>The longitude of the GPS location of interest.</td>
+</tr>
+<tr>
+<td>latitude<br/>(required)</td>
+<td>The latitude of the GPS location of interest.</td>
+</tr>
+<td>distance<br/>(required)</td>
+<td>The distance in miles from the specified gps location.</td>
+</tr>
+<tr>
+<td>fuelType<br/>(required)</td>
+<td>Choose one of {reg, mid, pre or diesel}</td>
+</tr>
+<td>sortBy<br/>(required)</td>
+<td>Choose one of {distance, price}</td>
+</tr>
+<tr>
+<td>apiKey<br/>(required)</td>
+<td>Use 69r72p9zpe.json</td>
+</tr>
+
+</table>
+
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/stations/radius/37.373596/-122.020500/2/pre/price/69r72p9zpe.json</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "status": {
+        "error": "NO",
+        "code": "200",
+        "description": "none",
+        "message": "Request ok"
+    },
+    "geoLocation": {
+        "lat": "37.373596",
+        "lng": "-122.020500"
+    },
+    "stations": [
+        {
+            "price": "4.46",
+            "address": "603 Old San Francisco Rd",
+            "id": "99561",
+            "lat": "37.367210",
+            "lng": "-122.022522",
+            "station": "unbranded",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "2013-07-23T2:30:37-0700",
+            "source": "alpine"
+        },
+        {
+            "price": "N/A",
+            "address": "603 Old San Francisco Rd",
+            "id": "99561",
+            "lat": "37.367210",
+            "lng": "-122.022522",
+            "station": "unbranded",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.24",
+            "address": "296 N Fairoaks Ave",
+            "id": "99576",
+            "lat": "37.381645",
+            "lng": "-122.018448",
+            "station": "Chevron",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.20",
+            "address": "703 S Wolfe Rd",
+            "id": "99563",
+            "lat": "37.366112",
+            "lng": "-122.013901",
+            "station": "Shell",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "N/A",
+            "address": "117 W Maude Ave",
+            "id": "99578",
+            "lat": "37.388378",
+            "lng": "-122.026520",
+            "station": "Unbranded",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.20",
+            "address": "498 N Mathilda Ave",
+            "id": "99575",
+            "lat": "37.389259",
+            "lng": "-122.030533",
+            "station": "Valero",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.12",
+            "address": "499 N Mathilda Ave",
+            "id": "99573",
+            "lat": "37.389271",
+            "lng": "-122.030533",
+            "station": "76",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.24",
+            "address": "698 N Fairoaks Ave",
+            "id": "99574",
+            "lat": "37.391197",
+            "lng": "-122.014290",
+            "station": "Valero",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "3.96",
+            "address": "1040 Sunnyvale Saratoga Rd",
+            "id": "99546",
+            "lat": "37.358582",
+            "lng": "-122.032204",
+            "station": "Arco",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "2 months ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.26",
+            "address": "801 N Fairoaks Ave",
+            "id": "99564",
+            "lat": "37.392555",
+            "lng": "-122.013832",
+            "station": "76",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "N/A",
+            "address": "905 E El Camino Real",
+            "id": "99538",
+            "lat": "37.352959",
+            "lng": "-122.013580",
+            "station": "76",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "N/A",
+            "address": "898 E Fremont Ave",
+            "id": "99540",
+            "lat": "37.352089",
+            "lng": "-122.014748",
+            "station": "Unbranded",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.20",
+            "address": "724 N Mathilda Ave",
+            "id": "99577",
+            "lat": "37.394180",
+            "lng": "-122.029160",
+            "station": "Chevron",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.20",
+            "address": "776 N Mathilda Ave",
+            "id": "99579",
+            "lat": "37.395432",
+            "lng": "-122.028748",
+            "station": "Shell",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "N/A",
+            "address": "1296 Sunnyvale Saratoga Rd",
+            "id": "99543",
+            "lat": "37.352428",
+            "lng": "-122.032242",
+            "station": "76",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.10",
+            "address": "1300 Sunnyvale Saratoga Rd",
+            "id": "99542",
+            "lat": "37.351681",
+            "lng": "-122.032249",
+            "station": "Shell",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.26",
+            "address": "295 Lawrence Expy",
+            "id": "99572",
+            "lat": "37.380001",
+            "lng": "-121.995987",
+            "station": "76",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.28",
+            "address": "996 W Evelyn Ave",
+            "id": "99562",
+            "lat": "37.382889",
+            "lng": "-122.044228",
+            "station": "Valero",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.26",
+            "address": "2455 Lawrence Expy",
+            "id": "99593",
+            "lat": "37.366100",
+            "lng": "-121.995934",
+            "station": "Shell",
+            "region": "California",
+            "city": "Santa Clara",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.18",
+            "address": "1097 E Duane Ave",
+            "id": "99565",
+            "lat": "37.386848",
+            "lng": "-121.996834",
+            "station": "Valero",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        },
+        {
+            "price": "4.30",
+            "address": "1005 W El Camino Real",
+            "id": "99545",
+            "lat": "37.372051",
+            "lng": "-122.049049",
+            "station": "Chevron",
+            "region": "California",
+            "city": "Sunnyvale",
+            "date": "1 day ago",
+            "source": "notAlpine.com"
+        }
+    ]
+}
+
+</pre>
+
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

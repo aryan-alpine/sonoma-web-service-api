@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET DeviceLogEntry</h1>
+
+<p>Retrieve up to 100 device log entries.</p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/DeviceLogEntries?app=PinNFind</p>
+
+<h2>Parameters</h2>
+
+<table width="100%" border="1">
+
+<tr>
+<td>app<br/>(optional)</td>
+<td>Which application is giving us information?</td>
+</tr>
+
+</table>
+
+<h2>Example Request</h2>
+
+<p>http://localhost:8080/alpine/GetDeviceLogServlet?app=PinNFind</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "app": "PinNFind",
+    "dev": "TheUniqueDeviceId",
+    "ver": "1.0",
+    "act": "btloss",
+    "actaux": "AUXILIARY_OBJECT",
+    "ts": 123456789,
+    "chksm": "asdfasdf",
+    "lat": 37.484619,
+    "lng": -122.148753,
+    "acc": 100,
+    "lts": 123456789,
+    "locSpec": "n",
+    "locText": "El Camino and Pagemill Rd., Palo Alto, Ca",
+    "spd": 10.5,
+    "battery": 90,
+    "mcc": "1234",
+    "mnc": "1A2B3C",
+    "osBuild": "Android 2.3.3",
+    "phoneSpec": "Motorola MODEL_NUMBER",
+    "btName": "My Car",
+    "btMAC": "ABCDEFABCDEFABCDEF",
+    "wifiSSID": "CoolWifi",
+    "wifiMAC": "ABCDABCDABCDABCD"
+}
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

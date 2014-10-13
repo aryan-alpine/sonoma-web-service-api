@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>POST message</h1>
+
+<p>Send a message to one or more recipients via one or more transport mechanisms {sms, email, android}.</p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/message</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is POST.<br/>
+For example:</p>
+
+<pre>
+POST /message HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p>This service may only be used by registered users who are authorized to use it.<br/>
+The HTTP Basic Authentication scheme is used to pass the encoded username:password of the user.</p>
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<p>With HTTP POST and PUT, the conventional way to pass data to a service 
+is via the body of the HTTP request.</p>
+
+<h3>Example</h3>
+
+<p>The body of the POST request contains JSON.<br/>
+The JSON is an array of messages.<br/>
+Each message, in turn, may be directed to one or more recipients.<br/>
+Each recipient has a delivery method, which is one of {email, sms, android, iphone}.<br/>
+It is the responsibility of the server to process each message.<br/>
+The server will send each message to all of the recipients 
+via the mechanism specified and report back
+the status of each send.<br/><br/>
+Below is an example ...</p>
+
+<pre>
+POST /message
+Content-Type: application/json
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+[
+    {
+        "app": "TestMyplacelist",
+        "dev": "add0d21b-634e-4c04-9677-cbc24231aa29",
+        "user": "alexander.j.ryan@gmail.com",
+        "msgId": "1",
+        "subject": "How awesome I am",
+        "message": "Just sending this message to you to remind you how handsome I am ...",
+        "recipients": [
+            {
+                "name": "Alex iPhone",
+                "type": "sms",
+                "phone": "6505212725"
+            },
+            {
+                "name": "Alex Gmail",
+                "type": "email",
+                "email": "alexander.j.ryan@gmail.com"
+            },
+            {
+                "name": "Alex Android",
+                "type": "android",
+                "email": "alexander.j.ryan@gmail.com",
+                "phone": "6505212725"
+            }
+        ],
+        "messageClass": "Honeydo",
+        "priority": 1,
+        "createDate": 1375118246151,
+        "latitude": 37.379425,
+        "longitude": -121.961395
+    },
+    {
+        "app": "TestMyplacelist",
+        "dev": "add0d21b-634e-4c04-9677-cbc24231aa29",
+        "user": "alexander.j.ryan@gmail.com",
+        "msgId": "2",
+        "subject": "How awesome I am",
+        "message": "Just sending this message to you to remind you how awesome I am ...",
+        "recipients": [
+            {
+                "name": "Alex Android",
+                "type": "sms",
+                "phone": "4085972947"
+            },
+            {
+                "name": "Alex Alpine",
+                "type": "email",
+                "email": "aryan@alpineconnectivity.com"
+            }
+        ],
+        "messageClass": "TrafficAlert",
+        "priority": 1,
+        "createDate": 1375118246151,
+        "latitude": 37.379425,
+        "longitude": -121.961395
+    }
+]
+
+</pre>
+
+
+<h3>Description</h3>
+
+<p>For each individual record in the array of records ...</p>
+
+<table width="100%" border="1">
+
+<!-- 
+<tr>
+<td><span style="color:red">apiKey</span><br/>(required)</td>
+<td>The apiKey which identifies which developer is requesting to use the service.<br/>
+<b>apiKey, dev, app and user are required for most Alpine data-changing operations.</b></td>
+</tr>
+ -->
+
+<tr>
+<td width="150px"><span style="color:red">dev</span><br/>(required)</td>
+<td>This is the deviceId of the device sending the request.<br/>
+<b>apiKey, dev, app and user are required for most Alpine data-changing operations.</b></td>
+</tr>
+
+<tr>
+<td><span style="color:red">app</span><br/>(required)</td>
+<td>
+The name of the application making the request. e.g. "SnapGas"<br/>
+<b>apiKey, dev, app and user are required for most Alpine data-changing operations.</b></td>
+</tr>
+
+<tr>
+<td><span style="color:red">user</span><br/>(required)</td>
+<td>
+The email address of the person making the change.<br/>
+<b>apiKey, dev, app and user are required for most Alpine data-changing operations.</b></td>
+</tr>
+
+<tr>
+<td><span style="color:red">msgId</span><br/>(required)</td>
+<td>
+a unique identifier for each record being sent..<br/>
+Usually this field is an integer.<br/>
+So if 4 log entries are being sent, this field will be set to 1, 2, 3 & 4 in each of them respectively.<br/>
+This is the number referred to in the response to identify any individual record posts that failed.<br/>
+<b>msgId is required for most Alpine data-changing operations where more than one record is being POSTed or PUT.</b></td>
+</tr>
+
+<tr>
+<td>subject (required)</td>
+<td>What is this message about?<br/>
+email recipients will get this as the subject of the email they receive.<br/>
+sms recipients will get this merged inot the text message they receive.</td>
+</tr>
+
+<tr>
+<td>message (required)</td>
+<td>This the actual message that is sent.</td>
+</tr>
+
+<tr>
+<td>recipients (required)</td>
+<td>An array of 1 or more recipient objects is required.<br/>
+Why bother sending a message if there is no one to send it ti?<br/>
+The structure of the object will vary depending on the <b>type</b> of recipient.<br/>
+SEE BELOW!</td>
+</tr>
+
+<tr>
+<td>messageClass (optional)</td>
+<td>This is optional. <br/>
+However, if you specify it, it must be one of these values:<br/>
+{Honeydo, TrafficAlert, PoiForwarding}</td>
+</tr>
+
+<tr>
+<td>priority (optional)</td>
+<td>an integer?</td>
+</tr>
+
+<tr>
+<td>createDate (optional)</td>
+<td>
+The time (on the user's device) that the message was sent.<br/>
+Must be in specified in unix time: <br/>
+the number of seconds that have elapsed since 00:00:00 Coordinated Universal Time (UTC), Thursday, 1 January 1970.</td>
+</tr>
+
+<tr>
+<td>latitude (optional)</td>
+<td>the latitude at which the sender was located when the message was sent</td>
+</tr>
+
+<tr>
+<td>longitude (optional)</td>
+<td>the longitude at which the sender was located when the message was sent</td>
+</tr>
+
+</table>
+
+
+<h3>Recipient</h3>
+
+<table width="100%" border="1">
+
+<tr>
+<td>Name (optional)</td>
+<td>The name of the recipient of the message.</td>
+</tr>
+
+
+<tr>
+<td width="150px">type (required)</td>
+<td>One of {sms, email, android}</td>
+</tr>
+
+<tr>
+<td>phone (complicated)</td>
+<td>a valid 10 digit phone number<br/>
+if type=sms, this field is required.<br/>
+if type=android, one of email or phone is required.<br/>
+if type=android, both email and phone may be supplied.<br/><br/>
+ALERT: text messages will actually be sent to the people you specify<br/>
+Please use this service carefully!!!<br/>
+NOTE: It costs $ each time a text message is sent.<br/>
+This service currently only works with approved phone numbers.<br/>
+Text messages may be sent to one of the following approved phone numbers:<br/><br/>
+
+<table border="1">
+<tr>
+<td>Alex: iPhone</td>
+<td>6505212725</td>
+</tr>
+<tr>
+<td>Alex: Android</td>
+<td>4085972947</td>
+</tr>
+</table>
+<br/>
+
+</td>
+</tr>
+
+
+<tr>
+<td>email (complicated)</td>
+<td>a valid email address<br/>
+if type=email, this field is required.<br/>
+if type=android, one of email or phone is required.<br/>
+if type=android, both email and phone may be supplied.
+</td>
+</tr>
+
+
+</table>
+
+
+
+
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>201 Created</b></li>
+<li><b>207 Multi-Status</b>: There was at least one error.</li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should aloways contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+4 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 201: &quot;Created&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+
+{
+    "numberOfRecordsReceived": 2,
+    "numberOfRecordsProcessed": 2,
+    "numberOfErrors": 0
+}
+</pre>
+
+<h3>(2) Response Code = 207: &quot;Multi-Status&quot; </h3>
+<p>If there were any errors with any of the data,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 207 Multi-Status
+
+{
+    "numberOfRecordsReceived": 2,
+    "numberOfRecordsProcessed": 0,
+    "numberOfErrors": 2,
+    "errors": [
+        {
+            "msgId": "1",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "recipient type=|email|, but no email was specified."
+        },
+        {
+            "msgId": "2",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "recipient type=|email|, but no email was specified."
+        }
+    ]
+}
+
+
+
+</pre>
+
+
+<h3>(3) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+
+
+<h3>(4) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Unable to read the body of the HTTP POST."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Response: Example ERRORS</h2>
+
+<p>The following multi-status response illustrates the most commonly occurring 
+reasons why an individual message may fail.</p>
+
+<pre>
+{
+    "numberOfRecordsReceived": 100,
+    "numberOfRecordsProcessed": 86,
+    "numberOfErrors": 14,
+    "errors": [
+        {
+            "record": "1",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "apiKey was unspecified"
+        },
+        {
+            "record": "2",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "dev was unspecified"
+        },
+        {
+            "record": "3",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "app was unspecified"
+        },
+        {
+            "record": "4",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "user was unspecified"
+        },
+        {
+            "record": "5",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "msgId was unspecified"
+        },
+        {
+            "record": "6",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "subject was unspecified"
+        },
+        {
+            "record": "7",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "message was unspecified"
+        },
+        {
+            "record": "8",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "message has no recipients"
+        },
+        {
+            "record": "9",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "recipient type was not specified"
+        },
+        {
+            "record": "10",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "recipient type=|sms|, but no phone number was specified"
+        },
+        {
+            "record": "11",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "recipient type=|email|, but no email was specified."
+        },
+        {
+            "record": "12",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": ""|X| is not a valid messageClass. Must be one of {Honeydo, TrafficAlert, PoiForwarding}"
+        },
+        {
+            "record": "13",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "invalid latitude"
+        },
+        {
+            "record": "14",
+            "errorCode": 1,
+            "errorMessage": "Invalid JSON",
+            "data": "invalid longitude"
+        }
+    ]
+}
+</pre>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

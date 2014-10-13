@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>PUT leaderboard</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>PUT leaderboard</h1>
+
+<p>PUT a new leaderboard entry.</p>
+
+<p>If this device HAS NOT posted a score for this particular workzone before, 
+use the <a href="POST_leaderboard.html">POST leaderboard</a> service to create a new record.</p>
+
+<p>If this device HAS posted a score for this particular workzone before, 
+use the PUT service to update the score in the old record.</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<pre>
+PUT /alpine/leaderboard HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+</pre>
+
+
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<h3>Example</h3>
+
+<pre>
+POST /alpine/leaderboard HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+
+{
+    "deviceId": "3f41b3c3-d56c-4da5-9ef6-2f5e3e04eaaa",
+    "deviceId2": "52016b15722be203a5001469",
+    "nickname": "beast",
+    "home": "37.292897,-121.934204",
+    "work": "37.292897,-121.934204",
+    "workaddr": "763-765 Creekside Way, Campbell, CA 95008, USA",
+    "workzip": "95008",
+    "workZone": "Santa Clara, CA 95054, USA",
+    "score": 9999
+}
+
+</pre>
+
+
+<h3>Description</h3>
+
+<p>Data in the JSON ...</p>
+
+<table width="100%" border="1">
+
+
+
+
+<tr>
+<td><span style="color:red">deviceId</span><br/>(required)</td>
+<td>A unique identifier for the device POSTing.</td>
+</tr>
+
+
+<tr>
+<td><span style="color:black">deviceId2</span><br/>(optional)</td>
+<td>A unique identifier for the device POSTing.</td>
+</tr>
+
+<tr>
+<td><span style="color:red">nickname</span><br/>(required)</td>
+<td>A nickname for the user of the device POSTing.</td>
+</tr>
+
+<tr>
+<td><span style="color:black">home</span><br/>(optional)</td>
+<td>gps coordinates</td>
+</tr>
+
+<tr>
+<td><span style="color:black">work</span><br/>(optional)</td>
+<td>gps coordinates</td>
+</tr>
+
+<tr>
+<td><span style="color:black">workaddr</span><br/>(optional)</td>
+<td>work address</td>
+</tr>
+
+<tr>
+<td><span style="color:black">workzip</span><br/>(optional)</td>
+<td>work zip code</td>
+</tr>
+
+
+
+<tr>
+<td><span style="color:red">workzone</span><br/>(required)</td>
+<td>A geographical "zone".
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">score</span><br/>(required)</td>
+<td>The new score of this user in this workzone.
+</td>
+</tr>
+
+
+</table>
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>200 Success</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+5 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 200: &quot;Success&quot; </h3>
+<p>If the service executed successfully, no JSON is required:</p>
+
+<pre>
+HTTP/1.1 20 Success
+
+
+</pre>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+s
+
+<h3>(3) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server that prevents us fulfilling to the request,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Error inserting record into the database.."
+}
+</pre>
+
+
+<br/><hr/>
+<!-- 
+<h2>Example Java code</h2>
+ -->
+
+<pre>
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

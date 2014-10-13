@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>POST eqRecommendations</h1>
+
+<p>Save new set of equalizer settings recommendations for a specific genre.</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is POST.<br/>
+For example:</p>
+
+<pre>
+POST /eqRecommendations HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p>Note: This service requires that the user be authenticated.<br/>
+This is a temporary service for the development environment only.
+We do not want random authenticated users to have the ability to change
+our equalizerSettings recommendations.</p>
+
+<!--  
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<p>One way to pass data to a service is via the parameters of the request method 
+in the "headers" section of the HTTP request.<br/>
+This approach is customary when the HTTP method is GET or DELETE.<br/>
+The HTTP method of this service is POST.<br/>
+This service does not utilize this approach.</p>
+-->
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<p>One way to pass data to a service is via the body of the HTTP request.<br/>
+This service passes data in this fashion in a JSON data structure.<br/>
+An example of the data structure and a detailed description of its elements follows...</p>
+
+<h3>Example (5-band)</h3>
+
+<pre>
+POST /eqRecommendations HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "genre": "Rock",
+    "numberOfBands": 5,
+    "equalizerSettings": [
+        {
+            "numberOfBands": 5,
+            "band1": {
+                "frequency": 31.25,
+                "value": 1
+            },
+            "band2": {
+                "frequency": 63.5,
+                "value": 2
+            },
+            "band3": {
+                "frequency": 125,
+                "value": 3
+            },
+            "band4": {
+                "frequency": 250,
+                "value": 4
+            },
+            "band5": {
+                "frequency": 500,
+                "value": 5
+            }
+        },
+        {
+            "numberOfBands": 5,
+            "band1": {
+                "frequency": 31.25,
+                "value": 1
+            },
+            "band2": {
+                "frequency": 63.5,
+                "value": 2
+            },
+            "band3": {
+                "frequency": 125,
+                "value": 3
+            },
+            "band4": {
+                "frequency": 250,
+                "value": 4
+            },
+            "band5": {
+                "frequency": 500,
+                "value": 5
+            }
+        }
+    ]
+}
+</pre>
+
+
+<h3>Example (10-band)</h3>
+
+<pre>
+POST /eqRecommendations HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "genre": "Alternative",
+    "numberOfBands": 10,
+    "equalizerSettings": [
+        {
+            "numberOfBands": 10,
+            "band1": {
+                "frequency": 31.25,
+                "value": 1
+            },
+            "band2": {
+                "frequency": 63.5,
+                "value": 2
+            },
+            "band3": {
+                "frequency": 125,
+                "value": 3
+            },
+            "band4": {
+                "frequency": 250,
+                "value": 4
+            },
+            "band5": {
+                "frequency": 500,
+                "value": 5
+            },
+            "band6": {
+                "frequency": 1000,
+                "value": 6
+            },
+            "band7": {
+                "frequency": 2000,
+                "value": 7
+            },
+            "band8": {
+                "frequency": 4000,
+                "value": 8
+            },
+            "band9": {
+                "frequency": 8000,
+                "value": 9
+            },
+            "band10": {
+                "frequency": 12000,
+                "value": 10
+            }
+        },
+        {
+            "numberOfBands": 10,
+            "band1": {
+                "frequency": 31.25,
+                "value": 10
+            },
+            "band2": {
+                "frequency": 63.5,
+                "value": 9
+            },
+            "band3": {
+                "frequency": 125,
+                "value": 8
+            },
+            "band4": {
+                "frequency": 250,
+                "value": 7
+            },
+            "band5": {
+                "frequency": 500,
+                "value": 6
+            },
+            "band6": {
+                "frequency": 1000,
+                "value": 5
+            },
+            "band7": {
+                "frequency": 2000,
+                "value": 4
+            },
+            "band8": {
+                "frequency": 4000,
+                "value": 3
+            },
+            "band9": {
+                "frequency": 8000,
+                "value": 2
+            },
+            "band10": {
+                "frequency": 12000,
+                "value": 1
+            }
+        }
+    ]
+}
+</pre>
+
+<h3>Description</h3>
+
+<p>Data in the JSON ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">genre</span><br/>(required)</td>
+<td>
+One of {"Rock", "Hip Hop", "Pop", "Classic", "Hard Rock", etc.<br/>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">numberOfBands</span><br/>(required)</td>
+<td>One of {5, 10}</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">bandX.frequency</span><br/>(required)</td>
+<td>
+floating point number. 2 decimal points after the zero.
+</tr>
+
+<tr>
+<td><span style="color:red">bandX.value</span><br/>(required)</td>
+<td>
+integer between 0 and 10.<br/>
+The higher the value, the more boost is given to that frequency.
+</tr>
+
+</table>
+
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>201 Created</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>401 Not Authorized</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+4 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 201: &quot;Created&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+
+{
+    "created": true,
+}
+</pre>
+
+<p>Description of the data ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">created</span><br/>(required)</td>
+<td>
+Was the record created or not?<br/>
+true or false.<br/>
+Note: If the 201 response code was received, this value will always be true.
+</tr>
+
+</table>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+
+
+<h3>(3) Response Code = 401: &quot;Not Authorized&quot; </h3>
+<p>If a valid username/password was not passed via the Basic Authentication mechanism,
+this error code will be returned.</p>
+
+<pre>
+HTTP/1.1 401 Not Authorized
+WWW-Authenticate: Basic realm="alpineconnectivity.com"
+
+{
+    "errorCode": 401,
+    "errorMessage": "Not Authorized",
+    "data": "Authorization header was not found."
+}
+</pre>
+
+
+<h3>(4) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server that prevents us fulfilling to the request,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Error inserting record into the database.."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

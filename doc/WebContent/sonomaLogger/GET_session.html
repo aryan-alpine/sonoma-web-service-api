@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>GET session</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET session</h1>
+
+<p>Get the sequence of appEvents in a particular device session.<br/>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Request</h2>
+
+<pre>
+GET /sonomaLogger/session/sessionId/1411606990 HTTP/1.1
+Host: test1Log.aosvapps.com:443
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p>This service may only be used by registered users who are authorized to use it.<br/>
+The HTTP Basic Authentication scheme is used to pass the encoded username:password of the user.<br/>
+Each user may only create, read, update and delete from their own music library.</p>
+
+<h3>Parameters</h3>
+
+<table width="100%" border="1">
+
+<tr>
+<td>sessionId<br/>(required)</td>
+<td>
+The unique identifier for a session of the device whose session logs we want to retrieve.
+</td>
+</tr>
+
+</table>
+
+
+<br/><hr/>
+<h2>HTTP Response</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>200 Success</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+3 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 200: &quot;Success&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 200 Success
+
+[
+    {
+        "details": {},
+        "sessionId": 1412102787,
+        "time": 1412102812,
+        "serverTime": 1412103071927,
+        "origin": "user",
+        "module": "utility",
+        "app": {
+            "name": "Sonoma",
+            "version": "1.0"
+        },
+        "device": {
+            "type": "iPhone",
+            "osBuild": "7.1",
+            "id": "F6E7C6D2C4EC42DCA10FA0EE7A90B049"
+        },
+        "location": {}
+    },
+    {
+        "details": {},
+        "sessionId": 1412102787,
+        "time": 1412102812,
+        "serverTime": 1412103072115,
+        "origin": "user",
+        "module": "LevelPlay",
+        "type": "APP_LAUCHED",
+        "app": {
+            "name": "Sonoma",
+            "version": "1.0"
+        },
+        "device": {
+            "type": "iPhone",
+            "osBuild": "7.1",
+            "id": "F6E7C6D2C4EC42DCA10FA0EE7A90B049"
+        },
+        "location": {}
+    },
+    {
+        "details": {},
+        "sessionId": 1412102787,
+        "time": 1412102818,
+        "serverTime": 1412103078151,
+        "origin": "user",
+        "module": "LevelPlay",
+        "type": "ENTER_LEVELPLAY",
+        "app": {
+            "name": "Sonoma",
+            "version": "1.0"
+        },
+        "device": {
+            "type": "iPhone",
+            "osBuild": "7.1",
+            "id": "F6E7C6D2C4EC42DCA10FA0EE7A90B049"
+        },
+        "location": {}
+    },
+    {
+        "details": {
+            "level": "0"
+        },
+        "sessionId": 1412102787,
+        "time": 1412102827,
+        "serverTime": 1412103086737,
+        "origin": "user",
+        "module": "LevelPlay",
+        "type": "SELECT_LEVEL",
+        "app": {
+            "name": "Sonoma",
+            "version": "1.0"
+        },
+        "device": {
+            "type": "iPhone",
+            "osBuild": "7.1",
+            "id": "F6E7C6D2C4EC42DCA10FA0EE7A90B049"
+        },
+        "location": {}
+    },
+    {
+        "details": {
+            "ScreenName": "SongFlow"
+        },
+        "sessionId": 1412102787,
+        "time": 1412102827,
+        "serverTime": 1412103086763,
+        "origin": "user",
+        "module": "levelPlay",
+        "type": "ScreenLaunched",
+        "app": {
+            "name": "Sonoma",
+            "version": "1.0"
+        },
+        "device": {
+            "type": "iPhone",
+            "osBuild": "8.0.2",
+            "id": "F6E7C6D2C4EC42DCA10FA0EE7A90B049"
+        },
+        "location": {}
+    },
+    {
+        "details": {
+            "level": "2"
+        },
+        "sessionId": 1412102787,
+        "time": 1412102841,
+        "serverTime": 1412103100412,
+        "origin": "user",
+        "module": "LevelPlay",
+        "type": "SELECT_LEVEL",
+        "app": {
+            "name": "Sonoma",
+            "version": "1.0"
+        },
+        "device": {
+            "type": "iPhone",
+            "osBuild": "7.1",
+            "id": "F6E7C6D2C4EC42DCA10FA0EE7A90B049"
+        },
+        "location": {}
+    }
+]
+</pre>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 2,
+    "errorMessage": "INVALID PARAMS",
+    "data": "userId not specified"
+}
+</pre>
+
+
+<h3>(3) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Unable to connect to the database."
+}
+</pre>
+
+<!-- 
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+
+</pre>
+
+ -->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

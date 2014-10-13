@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>POST eq</h1>
+
+<p>Save a new equalizer setting for a user.</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is POST.<br/>
+For example:</p>
+
+<pre>
+POST /eq HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p>Note: This service requires that the user be authenticated.<br/>
+We need to know who they are, so we can store their data for them,
+and give it back to them when they request it.<br/>
+The username/password is passed via the basic authentication scheme.</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<p>One way to pass data to a service is via the parameters of the request method 
+in the "headers" section of the HTTP request.<br/>
+This approach is customary when the HTTP method is GET or DELETE.<br/>
+The HTTP method of this service is POST.<br/>
+This service does not utilize this approach.</p>
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<p>Another way to pass data to a service is via the body of the HTTP request.<br/>
+This service passes data in this fashion in a JSON data structure.<br/>
+An example of the data structure and a detailed description of its elements follows...</p>
+
+<h3>Example</h3>
+
+<pre>
+POST /eq HTTP/1.1
+Host: dev5:8888
+
+{
+    "name": "Metallica Settings",
+    "type": "Music",
+    "genre": "Hard Rock",
+    "numberOfBands": 10,
+    "band1": {
+        "frequency": 31.25,
+        "value": 1
+    },
+    "band2": {
+        "frequency": 63.5,
+        "value": 2
+    },
+    "band3": {
+        "frequency": 125,
+        "value": 3
+    },
+    "band4": {
+        "frequency": 250,
+        "value": 4
+    },
+    "band5": {
+        "frequency": 500,
+        "value": 5
+    },
+    "band6": {
+        "frequency": 1000,
+        "value": 6
+    },
+    "band7": {
+        "frequency": 2000,
+        "value": 7
+    },
+    "band8": {
+        "frequency": 4000,
+        "value": 8
+    },
+    "band9": {
+        "frequency": 8000,
+        "value": 9
+    },
+    "band10": {
+        "frequency": 12000,
+        "value": 1
+    }
+}
+</pre>
+
+
+<h3>Description</h3>
+
+<p>Data in the JSON ...</p>
+
+<table width="100%" border="1">
+
+<tr>
+<td><span style="color:red">name</span><br/>(required)</td>
+<td>Give a name to this settings. 
+The name will usually indicate what type of music the settings are appropriate for.</td>
+</tr>
+
+<tr>
+<td><span style="color:red">type</span><br/>(required)</td>
+<td>One of {"Music", "Movies", "Games"}.</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">genre</span><br/>(required)</td>
+<td>
+If type=Music, genre is one of {"Rock", "Hip Hop", "Pop", "Classic", "Hard Rock", etc.}<br/>
+If type=Movies, genre is one of {"Action", "Romantic", "Thriller", "Science Fiction", etc.}<br/>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">numberOfBands</span><br/>(required)</td>
+<td>One of {5, 10}</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">bandX.frequency</span><br/>(required)</td>
+<td>
+floating point number. 2 decimal points after the zero.
+</tr>
+
+<tr>
+<td><span style="color:red">bandX.value</span><br/>(required)</td>
+<td>
+integer between 0 and 10.<br/>
+The higher the value, the more bost is given to that frequency.
+</tr>
+
+</table>
+
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>201 Created</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>401 Not Authorized</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+4 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 201: &quot;Created&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+
+{
+    "created": true,
+    "id" : "51f973830d861c2c5c626910"
+}
+</pre>
+
+<p>Description of the data ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">created</span><br/>(required)</td>
+<td>
+Was the account created or not?<br/>
+true or false.<br/>
+</tr>
+
+
+<tr>
+<td><span style="color:red">id</span><br/>(required)</td>
+<td>
+A unique identifier which can be used to retrieve the saved equalizer settings.
+</tr>
+
+</table>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+
+
+<h3>(3) Response Code = 401: &quot;Not Authorized&quot; </h3>
+<p>If a valid username/password was not passed via the Basic Authentication mechanism,
+this error code will be returned.</p>
+
+<pre>
+HTTP/1.1 401 Not Authorized
+WWW-Authenticate: Basic realm="alpineconnectivity.com"
+
+{
+    "errorCode": 401,
+    "errorMessage": "Not Authorized",
+    "data": "Authorization header was not found."
+}
+</pre>
+
+
+<h3>(4) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server that prevents us fulfilling to the request,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Error inserting record into the database.."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+package com.alpine.rest;
+
+import java.io.IOException;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicAuthCache;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
+import com.alpine.data.http.common.RestError;
+import com.alpine.data.http.sonoma.eq.post.request.Band;
+import com.alpine.data.http.sonoma.eq.post.request.PostEqRequest;
+import com.alpine.data.http.sonoma.eq.post.response.PostEqResponse;
+import com.google.gson.Gson;
+
+public class PostEqSecure {
+
+  private static Logger logger = Logger.getLogger(PostEqSecure.class.getName());
+  
+  
+  /**
+   * @param args
+   */
+  public static void main(String[] args) {
+
+    /////////////////////////////////////////////////////////////////////////
+    // Create the POST request
+    /////////////////////////////////////////////////////////////////////////  
+    PostEqRequest postEqRequest = new PostEqRequest();
+    
+    postEqRequest.setName("Metallica Settings");
+    postEqRequest.setType("Music");
+    postEqRequest.setGenre("Hard Rock");
+    postEqRequest.setEqualizerType("10-band");
+    
+    Band band1 = new Band();
+    band1.setFrequency( new Double(31.25));
+    band1.setValue(new Integer(1));
+    postEqRequest.setBand1(band1);
+
+    Band band2 = new Band();
+    band2.setFrequency( new Double(63.5));
+    band2.setValue(new Integer(2));
+    postEqRequest.setBand2(band2);
+    
+    Band band3 = new Band();
+    band3.setFrequency( new Double(125));
+    band3.setValue(new Integer(3));
+    postEqRequest.setBand3(band3);
+    
+    Band band4 = new Band();
+    band4.setFrequency( new Double(250));
+    band4.setValue(new Integer(4));
+    postEqRequest.setBand4(band4);
+    
+    Band band5 = new Band();
+    band5.setFrequency( new Double(500));
+    band5.setValue(new Integer(5));
+    postEqRequest.setBand5(band5);
+    
+    Band band6 = new Band();
+    band6.setFrequency( new Double(1000));
+    band6.setValue(new Integer(6));
+    postEqRequest.setBand6(band6);
+    
+    Band band7 = new Band();
+    band7.setFrequency( new Double(2000));
+    band7.setValue(new Integer(7));
+    postEqRequest.setBand7(band7);
+    
+    Band band8 = new Band();
+    band8.setFrequency( new Double(4000));
+    band8.setValue(new Integer(8));
+    postEqRequest.setBand8(band8);
+    
+    Band band9 = new Band();
+    band9.setFrequency( new Double(8000));
+    band9.setValue(new Integer(9));
+    postEqRequest.setBand9(band9);
+    
+    Band band10 = new Band();
+    band10.setFrequency( new Double(12000));
+    band10.setValue(new Integer(10));
+    postEqRequest.setBand10(band10);
+    
+    Gson gson = new Gson();
+    String json = "not null";
+    try {
+      json = gson.toJson(postEqRequest);      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
+    logger.info("json=|" + json + "|");
+
+    
+    /////////////////////////////////////////////////////////////////////////
+    // Add Basic Authentication to the Authorization Header
+    /////////////////////////////////////////////////////////////////////////
+    
+    DefaultHttpClient httpClient = new DefaultHttpClient();
+    HttpHost targetHost = new HttpHost("localhost", 8080, "http");
+    
+    AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());
+    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("alexander.j.ryan@gmail.com", "beast");
+    httpClient.getCredentialsProvider().setCredentials(authScope, credentials);
+    
+    // Create AuthCache instance
+    AuthCache authCache = new BasicAuthCache();
+    // Generate BASIC scheme object and add it to the local auth cache
+    BasicScheme basicAuth = new BasicScheme();
+    authCache.put(targetHost, basicAuth);
+
+    // Add AuthCache to the execution context
+    BasicHttpContext localcontext = new BasicHttpContext();
+    localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+    
+    /////////////////////////////////////////////////////////////////////////
+    // Send the POST request
+    /////////////////////////////////////////////////////////////////////////   
+    
+    HttpPost httpPost = new HttpPost("http://localhost:8080/sonoma/eq");
+    //HttpPost httpPost = new HttpPost("http://dev5:8888/sonoma/eq");
+    HttpResponse response = null;
+    
+    try {
+            
+      /////////////////////////////////////////////////////////////////////////
+      // Send the POST request
+      /////////////////////////////////////////////////////////////////////////
+      StringEntity stringEntity = new StringEntity(json);
+      stringEntity.setContentType("application/json");    
+      httpPost.setEntity(stringEntity);
+      //response = httpClient.execute(httpPost);    
+      response = httpClient.execute(targetHost, httpPost, localcontext);
+      
+      /////////////////////////////////////////////////////////////////////////
+      // Response: What's in the headers?
+      /////////////////////////////////////////////////////////////////////////
+      
+      StatusLine statusLine = response.getStatusLine();
+      int statusCode = statusLine.getStatusCode();
+      logger.info("statusCode=|" + statusCode + "|");
+
+      Header[] headers = response.getAllHeaders();
+      for (Header header : headers) {
+        String name = header.getName();
+        String value = header.getValue();
+        logger.info(name + ": " + value);
+      }
+      
+      /////////////////////////////////////////////////////////////////////////
+      // Response: What's in the body?
+      /////////////////////////////////////////////////////////////////////////
+      HttpEntity entity2 = response.getEntity();
+      String json2 = EntityUtils.toString(entity2);
+      logger.info("json2=|" + json2 + "|");
+      
+      switch (statusCode) {
+      
+        case 201:
+          handle201(json2);
+          break;
+          
+        case 400:
+          handleError(json2);
+          break;
+          
+        case 500:
+          handleError(json2);
+          break;
+      }
+            
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      httpPost.releaseConnection();      
+    }
+
+  } // main
+  
+  
+  /**
+   * 
+   * @param json2
+   */
+  public static void handle201(String json2) {
+    Gson gson = new Gson();
+    PostEqResponse postEqResponse = gson.fromJson(json2, PostEqResponse.class);
+    Boolean isCreated = postEqResponse.getCreated();
+    logger.info("isCreated=|" + isCreated + "|");
+  }
+ 
+  /**
+   * 
+   */
+  public static void handleError(String json2) {
+    Gson gson = new Gson();
+    RestError restError = gson.fromJson(json2, RestError.class);
+
+    logger.info("errorCode=|" + restError.getErrorCode() + "|");
+    logger.info("errorMessage=|" + restError.getErrorMessage() + "|");  
+    logger.info("data=|" + restError.getData() + "|"); 
+  }
+
+}
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

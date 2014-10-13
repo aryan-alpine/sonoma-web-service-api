@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>Alpine SpapGas REST API</h1>
+
+<br/>
+
+
+<p>The Alpine SnapGas Rest API is a subset of the <a href="index.html">Alpine REST API.</a></p>
+
+<p>The purpose of this page is to describe how to use the SnapGas REST API calls
+to accomplish particular tasks. </p>
+
+<br/><hr/>
+<h2>Task 1: Get gas prices for all stations within a radius of a particular area.</h2>
+
+<p><a href="GET_stations.html">GET stations</a></p>
+
+<p>Note: Currently this service requires you to specify the type of gas that you are interested in.
+It returns the price of that type of gas only for all of the station.<br/>
+If you are interested in knowing the prices of all types of gas at a particular station,
+you must call the following service:</p>
+
+<p><a href="GET_station.html">GET station</a></p>
+
+<br/><hr/>
+<h2>Task 2: Get images.</h2>
+
+<p>There are 3 types of images associated with a gas station.
+<ol>
+<li>thumnailImage</li>
+<li>fullImage</li>
+<li>userImage</li>
+</ol>
+Full URLs to each of these images are returned for the station in both of these restful services:
+
+<p><a href="GET_stations.html">GET stations</a></p>
+<p><a href="GET_station.html">GET station</a></p>
+
+<p>To actually *retrieve* the image, you simply need to GET the URL.<br/>
+The image will be downloaded as "Content-type: image/jpeg" as if resided on the file system.<br/>
+In reality, the image is stored in a database and is being retrieved via the following
+restful service:</p>
+
+<p><a href="GET_image.html">GET image</a></p>
+
+
+<br/><hr/>
+<h2>Task 3: Update Gas prices</h2>
+
+To update one or more gas prices for a particular gas station, call this service:
+
+<p><a href="PUT_station1.jsp">PUT station/[stationId]</a></p>
+
+<br/><hr/>
+<h2>Task 4: Update user images</h2>
+
+To add a user images for a particular gas station, call the same service,
+with different parameters:
+
+<p><a href="PUT_station2.jsp">PUT station/[stationId]/[imageType]/[imageFormat]</a></p>
+
+
+<br/><hr/>
+<h2>Alpine SnapGas API</h2>
+
+
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>Method</th>
+    <th>Resource</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+
+<tr>
+  <tr>
+    <td>GET</td>
+    <td><a href="GET_image.html">image</a></td>
+    <td>Retrieve an image that has been stored uploaded to the server.</td>
+  </tr>
+</tr>
+
+
+<tr>
+  <tr>
+    <td>POST</td>
+    <td><a href="PUT_station.html">PUT station</a></td>
+    <td>Update gas prices at a particular gas station.<br/>
+    You can also use this service to upload a base64 encoded userImage of the gas station.</td>
+  </tr>
+</tr>
+
+<tr>
+  <tr>
+    <td>GET</td>  
+    <td><a href="GET_station.html">GET station</a></td>
+    <td>Get the gas prices for all types of gas at a particular gas station.</td>
+  </tr>
+</tr>
+
+<tr>
+  <tr>
+    <td>GET</td>  
+    <td><a href="GET_stations.html">GET stations</a></td>
+    <td>Get a list of gas prices from stations near a particular geographic location.</td>
+  </tr>
+</tr>
+
+
+
+</tbody>
+</table>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

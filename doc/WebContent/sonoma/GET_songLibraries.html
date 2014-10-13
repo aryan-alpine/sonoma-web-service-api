@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>GET songLibraries</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET songLibraries</h1>
+
+<p>Get a list of all song libraries owned by a particular user.<br/>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<pre>
+GET /songLibraries HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p>This service may only be used by registered users who are authorized to use it.<br/>
+The HTTP Basic Authentication scheme is used to pass the encoded username:password of the user.<br/>
+Each user may only create, read, update and delete from their own music library.</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+
+<h3>Example</h3>
+
+<pre>
+GET /songLibraries HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p><b>NOTE:</b> No parameters need to be passed in the request method header.<br/>
+The <b>userId</b> is the only parameter needed, and it is extracted from the HTTP <b>Authorization</b> header.</p>
+
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>200 Success</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+3 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 200: &quot;Success&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 200 Success
+
+[
+    {
+        "id": "532b3ae50364bb3e4030ec44",
+        "deviceId": "D6735C05A22643B395967FF83CB52251",
+        "userId": "alexander.j.ryan@gmail.com",
+        "created": 1395342053477,
+        "updated": 1395342053488
+    },
+    {
+        "id": "532a0548da067acc93b9e5a1",
+        "deviceId": "android-1ac0a0ab-bc49-4b8c-be91-84013fb8d361",
+        "userId": "alexander.j.ryan@gmail.com",
+        "created": 1395342053466,
+        "updated": 1395342053467
+    }
+]
+</pre>
+
+
+<h3>Description of the data ...</h3>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">id</span><br/>(guaranteed)</td>
+<td>
+The "id" that is returned, is the "song library id".<br/>
+Most operations on this library must specify this id.<br/>
+Only the user who created this the song library may request operations on it.<br/>
+Only a single song library is permitted per device.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">deviceId</span><br/>(guaranteed)</td>
+<td>
+An identifier that uniquely identifies the device that song library is stored on.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">userId</span><br/>(guaranteed)</td>
+<td>
+The alpine user who owns all of this.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">created</span><br/>(guaranteed)</td>
+<td>
+The epoch time that the library was created.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">updated</span><br/>(guaranteed)</td>
+<td>
+The epoch time that the library was last updated in some way.
+</td>
+</tr>
+
+
+</table>
+
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 2,
+    "errorMessage": "INVALID PARAMS",
+    "data": "userId not specified"
+}
+</pre>
+
+
+<h3>(3) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Unable to connect to the database."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

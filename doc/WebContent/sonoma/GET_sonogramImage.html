@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>GET sonogramImage</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET sonogramImage</h1>
+
+<p>Retrieve an image that has been previously stored on the server.</p>
+
+<h2>Resource</h2>
+
+<p>http://test.alpineconnectivity.com:8888/sonoma/sonogramImage/51f973830d861c2c5c626910.jpg</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET so there is no body that needs to be described.<br/>
+Only the basic headers are sent.<br/>
+For example:</p>
+
+<pre>
+GET /sonoma/sonogramImage/51f973830d861c2c5c626910.jpg HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<div id="requestMethodParameters">
+Expected Format:<br/>
+GET /sonoma/sonogramImage/[filename]
+<br/><br/>
+</div>
+
+<table width="100%" border="1">
+<tr>
+<td>fileName<br/>(required)</td>
+<td>See the sample URL above.<br/>
+The filename will always be a 24 character hexidecimal string followed by ".jpg" or ".png".<br/>
+Only JPEG and PNG file formats are currently supported.</td>
+</tr>
+</table>
+
+
+<br/><hr/>
+<h2>HTTP Request: Body</h2>
+
+<p>The request method is GET. <br/>
+So the body does not exist.</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Headers</h2>
+
+The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):<br/><br/>
+
+<b>200 Success</b><br/>
+<b>400 Bad Request</b><br/>
+<b>500 Server Error</b><br/><br/>
+
+If successful (Status Code = 200 Success), <br/>
+the content of the body of the HTTP Response will always be an image.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: image/jpeg</b><br/>
+OR<br/>
+<b>Content-Type: image/png</b><br/><br/>
+
+If unsuccessful (Status Code = 400 or 500), <br/>
+the content of the body will be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b><br/><br/>
+
+
+<br/><hr/>
+<h2>HTTP Response: Headers: Caching</h2>
+
+This service instructs the client and proxy servers to cache the image.<br/>
+Clients of this service should obey the instruction to cache the image in a local data store.<br/>
+Clients should not re-request the image until the cache expires - <br/>
+unless, of course, the user explicitly asks to refresh the image.<br/><br/>
+
+The headers to pay attention to here are:<br/><br/>
+
+<b>Cache-Control: public; max-age=770875895</b><br/><br/>
+
+If Cache-Control is public or private, the client must cache the content.<br/>
+The "max-age" directive specifies how many seconds that the content must be cached for.<br/>
+You can use this to calculate a specific expiry date for the image in your cache.<br/><br/>
+
+<b>Expires: Tue, 19 Jan 2038 15:14:06 GMT</b><br/><br/>
+Alternatively, you can use the pre-calculated date & time in the Expires header 
+to do the same thing.<br/><br/><br/>
+
+Example Headers:<br/>
+<pre>
+Cache-Control: public; max-age=770875895
+Content-Type: image/jpeg
+Date: Thu, 15 Aug 2013 23:02:32 GMT
+Expires: Tue, 19 Jan 2038 15:14:06 GMT
+Server: Apache-Coyote/1.1
+Transfer-Encoding: chunked
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>If the service executed successfully (Response Code = 200 Created)<br/>
+the response body will contain the unencoded binary image in the format you requested.</p>
+
+<p>If the service failed (Response Code = 400 or 500)<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+{
+  "errorCode": 2,
+  "errorMessage": "INVALID PARAMS",
+  "data" : "specified image does not exist"
+}
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request Example</h2>
+
+<p>http://test.alpineconnectivity.com:8888/sonoma/sonogramImage/51f973830d861c2c5c626910.jpg</p>
+
+<h2>HTTP Response Example (Success)</h2>
+
+<img src="http://www.brickshelf.com/gallery/s-asbury/Shell/shell1.jpg" />
+
+
+<h2>HTTP Response Example (Failure)</h2>
+
+<pre>
+{
+  "errorCode": 2,
+  "errorMessage": "INVALID PARAMS",
+  "data" : "file name must be a 24 character hexadecimal string followed by '.jpg' or '.png'"
+}
+</pre>
+
+<pre>
+{
+  "errorCode": 2,
+  "errorMessage": "INVALID PARAMS",
+  "data" : "the file specified does not exist"
+}
+</pre>
+
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

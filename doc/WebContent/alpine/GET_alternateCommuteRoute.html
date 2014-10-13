@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>GET alternateCommuteRoute</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET alternateCommuteRoute</h1>
+
+<p>Get an alternate travel plan.</p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/alternateCommuteRoute?start=37.379339,-121.961446&end=37.373596,-122.020500</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET so there is no body that needs to be described.<br/>
+Only the basic headers are sent.<br/>
+For example:</p>
+
+<pre>
+GET /alternateCommuteRoute?start=37.379339,-121.961446&end=37.373596,-122.020500 HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<div id="requestMethodParameters">
+Expected Format:<br/>
+GET /alternateCommuteRoute?start=[latitude],[longitude]&end=[latitude],[longitude]
+<br/><br/>
+</div>
+
+
+<table width="100%" border="1">
+<tr>
+<td>start<br/>(required)</td>
+<td>latitude & longitude of the starting point of the route</td>
+</tr>
+<tr>
+<td>end<br/>(required)</td>
+<td>latitude & longitude of the end point of the route</td>
+</tr>
+</table>
+
+<br/><hr/>
+<h2>HTTP Request: Body</h2>
+
+<p>The request method is GET. <br/>
+So the body does not exist.</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Headers</h2>
+
+The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):<br/><br/>
+
+<b>200 Success</b><br/>
+<b>400 Bad Request</b><br/>
+<b>500 Server Error</b><br/><br/>
+
+If successful (Status Code = 200 Success), <br/>
+the content of the body of the HTTP Response will be as specified in <b></b>.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: image/jpeg</b><br/>
+OR<br/>
+<b>Content-Type: image/png</b><br/><br/>
+
+If unsuccessful (Status Code = 400 or 500), <br/>
+the content of the body will be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b><br/><br/>
+
+
+<br/><hr/>
+<h2>HTTP Response: Headers: Caching</h2>
+
+
+
+
+
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/alternateCommuteRoute?start=37.379339,-121.961446&end=37.373596,-122.020500</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "status": "ok",
+    "index": 2,
+    "params": {
+        "start": "37.379339,-121.961446",
+        "end": "37.373596,-122.020500"
+    },
+    "route": [
+        "14 mins    Central Expy    ",
+        "15 mins    Kifer Rd    ",
+        "13 mins    Walsh Ave and Kifer Rd    "
+    ]
+}
+</pre>
+
+<hr/>
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/alternateCommuteRoute?start=37.373596,-122.020500&end=37.616404,-122.386212</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "status": "ok",
+    "index": -1,
+    "params": {
+        "start": "37.373596,-122.020500",
+        "end": "37.616404,-122.386212"
+    },
+    "route": [
+        "34 mins   US-101 N"
+    ]
+}
+</pre>
+
+
+<hr/>
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/alternateCommuteRoute?start=37.379339,-121.961446&end=37.373596,-122.020500</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "status": "ok",
+    "index": 1,
+    "params": {
+        "start": "37.379339,-121.961446",
+        "end": "37.373596,-122.020500"
+    },
+    "route": [
+        "13 mins    Central Expy    ",
+        "12 mins    Kifer Rd    ",
+        "13 mins    Walsh Ave and Kifer Rd    "
+    ]
+}
+</pre>
+
+
+<hr/>
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/alternateCommuteRoute?start=37.373596,-122.020500&end=37.616404,-122.386212</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "status": "ok",
+    "index": -1,
+    "params": {
+        "start": "37.373596,-122.020500",
+        "end": "37.616404,-122.386212"
+    },
+    "route": [
+        "34 mins   US-101 N"
+    ]
+}
+</pre>
+
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

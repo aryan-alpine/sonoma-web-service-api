@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Alpine RESTful services</title>
+   
+<link rel="stylesheet" type="text/css" href="css/main111.css">
+</head>
+<body>
+  
+<h1>Alpine REST API: Change Log</h1>
+<br/>
+  
+
+<h2>Changes</h2>  
+  
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>When?</th>
+    <th>Service</th>
+    <th>Interface change</th>
+    <th>Change</th>
+  </tr>
+</thead>
+<tbody>
+
+
+  <tr>
+    <td>2014-07-18</td>
+    <td><a href="sonoma/PUT_songLibrary.html">PUT songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>Return full description for all updated songs.</em><br/>
+    The return JSON now contains a full description of everything we know about the song
+    on the server.<br/>
+    This includes all of the details about the users individual preferences about the sang
+    AND all the details about the master record of the song.<br/>
+    Probably of most importance to developer are the (potentially recalculated) energy field,
+    and the potentially altered fields of topGenre, subGenre and tempo.<br/>
+  </td>
+  </tr>
+
+
+  <tr>
+    <td>2014-06-20</td>
+    <td><a href="sonoma/POST_songLibrary2.html">POST/PUT/GET songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>2 likability data field changes in the JSON.</em><br/>
+    (1) <b>isFavorite</b> changed to <b>isSonomaFavorite</b>.<br/>
+    There is no favoriting done in iTunes, so this will not be used in "POST songLibrary".<br/>
+    (2) changed <b>bookMarkedTime</b> to <b>sonomaFavoriteDate</b><br/>
+    This is the epoch time that the user favorited the song in sonoma.<br/>
+  </td>
+  </tr>
+
+
+  <tr>
+    <td>2014-06-20</td>
+    <td><a href="sonoma/POST_songLibrary2.html">POST/PUT/GET songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>multiple likability field changes.</em><br/>
+    (1) added <b>addDate</b> to mark epoch time that a song was added to the library.<br/>
+    (2) changed <b>appearsInPlayList</b> (a boolean value)<br/>
+    to <b>playListCount</b> to identify the number of play lists the song is a part of.<br/>
+    Assumption: Songs that are included in more playlists are more liked by the user.<br/>
+    (3) added <b>isMusic</b> boolean field.<br/>
+    There is a need to filter out audio books, spoken word and other non-music audio files from 
+    the audio files which contain music.
+  </td>
+  </tr>
+
+
+  <tr>
+    <td>2014-06-20</td>
+    <td><a href="sonoma/POST_songLibrary2.html">POST/PUT/GET songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>multiple genre field changes.</em><br/>
+    (1) Differentiation between <b>topGenre</b> and <b>subGenre</b>.<br/>
+    Our energy calculation algorithms require us to differentiate between these 2 different
+    types of iTunes genres. Our goal should be to ascertain the subGenre. However, if in lieu
+    of this, identifying the top level genre is better than not identifying any genre at all.<br/>
+    (2) Client-side genre processing:<br/>
+    In the request, we used to send just a single genre field called "iTunesGenre".<br/>
+    This contains whatever genre information that the user currently has in their iTunes record for that song.<br/>
+    Now, it is anticipated that the client may execute a local algorithm to change this value.<br/>
+    Fields are now provided for both of these data items.<br/>
+    <i>Summary of changes</i>
+    3 fields will be sent: <b>clientRawGenre</b>, <b>clientTopGenre</b> and <b>clientSubGenre</b><br/>
+    The first is the raw unprocessed genre that exists before processing.<br/>
+    The second is the genre that has been processed by the client.<br/>
+    Currently we expect that this "processing" is a simple check against a list of recognized genres.<br/>
+    In the future, more sophisticated client-side genre mapping algorithms may be used.<br/>
+    There is also a change in the data returned by the server.<br/>
+    For each song, we will return 5 fields:<br/>
+    <b>clientRawGenre</b>, <b>serverTopGenre</b> and <b>serverSubGenre</b>, <br/>
+    Example:<br/>
+                "clientRawGenre": "Hip Hop",<br/>
+                "clientTopGenre": "",<br/>
+                "clientSubGenre": ""<br/>
+                "serverTopGenre": "Hip-Hop/Rap", <br/>               
+                "serverSubGenre": "Gangsta Rap",<br/>
+    In addition to this, response JSON also contains a link to the master record
+    for each song. This master record used to contain a simple <b>genre</b> field.<br/>
+    The master record will now contain the following 2 fields:<br/>
+    <b>topGenre</b> and <b>subGenre</b>.
+  </td>
+  </tr>
+  <tr>
+    <td>2014-05-30</td>
+    <td><a href="sonoma/PUT_songLibrary.html">PUT songLibrary</a></td>
+    <td>No</td>
+    <td><em>Share new tempo info with other users.</em><br/>If the tempo is updated, we attempt to offer value to other users by sharing this information with them.<br/>
+    We update both the <b>tempo</b> and the <b>energy</b> fields in the master record of the song.<br/>
+    New users will automatically get this information as soon as they add the same song to their library.<br/>
+    Existing users who already have this song in their library will not be updated.<br/>
+    It is assumed that they will calculate the tempo information themselves very quickly.<br/>
+    However, AFTER calculating the tempo for the songs they don't have that information for
+    and sending this information to the sever via this service, they SHOULD request updated
+    energy numbers for those songs, because these very likely will have changed.</td>
+  </tr>
+    <tr>
+    <td>2014-05-30</td>
+    <td><a href="sonoma/PUT_songLibrary.html">PUT songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>Retrieve new energy numbers for songs whose tempo has changed.</em><br/>
+    The JSON returned along with a 201 status code has changed.<br/>
+    Before, nothing was returned.<br/>
+    Now, if the PUT request specified new tempo info for the song, the response will contain
+    the newly calculated energy for the song. It will also contain some of the variables used
+    to calculate it.</td>
+  </tr>
+  
+
+  <tr>
+    <td>2014-05-28</td>
+    <td><a href="sonoma/POST_songLibrary.html">POST songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>Now returns energy level for every song added.</em><br/>
+    We now return a (1) genre [try], (2) tempo [try] and (3) energy [guaranteed] for every song uploaded.<br/>
+    The return JSON has changed to reflect this.</td>
+  </tr>
+    <tr>
+    <td>2014-05-28</td>
+    <td><a href="sonoma/POST_songLibrary.html">POST songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>removed the <b>userId</b> input parameter from the JSON</em><br/>
+    Now checks to ensure that the account being used to create a library actually exists.<br/>
+    Previously users could subvert this check by authentication with one user in the "Authorization" header
+    and then creating the songLibrary for another user.<br/>
+    The bug has been fixed by eliminating the practice of sending up 2 different userId parameters.<br/>
+    We now use the userId in the Authorization header only.</td>
+  </tr>
+
+  <tr>
+    <td>2014-05-28</td>
+    <td><a href="sonoma/POST_songLibrary.html">POST songLibrary</a></td>
+    <td>No</td>    
+    <td><em>Restricted the number of songs uploaded to 100 per request.</em><br/>
+    This upper bound is needed to ensure that processing can be completed quickly enough
+    to return a timely response to the client.<br/>
+    As processing speeds are improved, this limit may be increased.</td>
+  </tr>
+  
+  <tr>
+    <td>2014-05-29</td>
+    <td><a href="sonoma/PUT_songLibrary.html">PUT songLibrary</a></td>
+    <td>Yes</td>
+    <td><em>changed the name of the input parameter from <b>id</b> to <b> songLibraryId</b></em><br/>
+    This has been done though all of the methods of the songLibrary resource to alleviate confusion.</td>
+  </tr>
+
+
+
+
+<!-- 
+  <tr>
+    <td>2014-05-28</td>
+    <td><a href="sonoma/POST_songLibrary.html">POST songLibrary</a></td>
+    <td>Now checks to ensure that the account being used to create a library actually exists.<br/>
+    Previously users could subvert this check by authentication with one user in the "Authorization" header
+    and then creating the songLibrary for another user.<br/>
+    The bug has been fixed by eliminating the practice of sending up 2 different userId parameters.<br/>
+    We now use the userId in the Authorization header only.</td>
+  </tr>
+ -->
+
+</tbody>
+</table>
+
+
+<br/><br/><br/>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>  
+</body>
+</html>

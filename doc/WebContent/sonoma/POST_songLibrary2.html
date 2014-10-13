@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>POST songLibrary</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>POST songLibrary</h1>
+
+<p>Create a library of songs for a specific device on the server.</p>
+
+
+<h2>You may add songs to a new or existing library</h2>
+
+<p>NOTE: This service may be used to either <br/>
+(1) create a new song library<br/>
+OR<br/>
+(2) add new songs to an existing song library<br/>
+</p>
+
+<p>To add songs to an NEW library you must NOT specify a songLibraryId in the JSON you post.<br/>
+Also the user must not already have a library associated with the same device. <br/>
+If they do, you must either add songs to the existing library, <br/>
+or DELETE the library that is already associated with the device<br/>
+before trying to create a new song library for that device.</p>
+
+<p>The songLibraryId will always be returned to you in the JSON of the HTTP response.<br/>
+You will need to grab this the first time you create the library.<br/>
+In the unlikely event that the library is created and you are not able to retrieve the
+songLibraryId returned in the HTTP response,<br/>
+you should call the <b>GET songLibraries</b> service to retrieve it.</p>
+
+<p>To add songs to an EXISTING library you must specify the songLibraryId for the library. <br/>
+And the user who is POSTing songs must be the owner of that library that they are posting to.</p>
+
+
+<h2>You may use your own localSongIds or allow us to generate them for you</h2>
+
+<p>Keeping the songs on the local device in-sync with the songs listed on the server is
+essential for generating good song recommendations.<br/><br/>
+The "localSongId" is the unique key used to identify each individual song in the user's
+song library.<br/>
+These can either be generated on the client, or you may ask the server to generate them for you.<br/>
+If you generate them yourself, the JSON returned by the server will be tiny 
+because no data is required by the client.<br/>
+If you ask the server to generate them for you, JSON will be returned containing all of the
+generated songIds and the artist and title of each song so that the client may match them
+to the appropriate song.</p>
+
+
+<br/><hr/>
+<h2>HTTP Request</h2>
+
+
+<h3>Example: Add songs to a NEW library: WITH localSongIds (mobile client)</h3>
+
+Notice:<br/>
+(1) the absence of the <b>id</b> property to identify the song library<br/>
+(2) the existence of the <b>localSongId</b> property in each of the individual songs.<br/><br/>
+
+<pre>
+POST /sonoma/songLibrary HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "deviceId": "D6735C05A22643B395967FF83CB52251",
+    "songs": [
+        {
+            "localSongId": "1",
+            "artist": "The Beatles",
+            "title": "Let it Be",
+            "album": "Lit it Be",
+            "duration": 221,            
+            "tempo": 200,
+            "clientRawGenre": "Rock",
+            "clientTopGenre": "Rock",
+            "clientSubGenre": "",            
+            "rating": 3.5,
+            "rating": 4.5,
+            "playCount": 123,
+            "skipCount": 1,
+            "playListCount": 2,            
+            "lastPlayedDate": 1395187013,
+            "addedDate": 1395187013,
+            "releaseDate": 1395187013,           
+            "bookMarkedTime": 1395187013
+            "isMusic": true,
+            "sonogramImage": "http://test.alpineconnectivity.com:8888/sonoma/sonogramImage/533c5c5d3004762e3ed29238.png"
+        },
+        {
+            "localSongId": "2",
+            "artist": "The Beatles",
+            "title": "Hey Jude",
+            "tempo": 187,
+            "clientRawGenre": "Rock",
+            "clientTopGenre": "Rock",
+            "clientSubGenre": ""            
+        }
+    ]
+}
+
+</pre>
+
+
+<h3>Example: Add songs to an EXISTING library: WITH localSongIds (mobile client)</h3>
+
+Notice:<br/>
+(1) the existence of the <b>id</b> property to identify the song library<br/>
+(2) the existence of the <b>localSongId</b> property in each of the individual songs.<br/><br/>
+
+
+<pre>
+POST /sonoma/songLibrary HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "songLibraryId": "53a9d8e40364c4172c7006d5",
+    "deviceId": "D6735C05A22643B395967FF83CB52251",
+    "songs": [
+        {
+            "localSongId": "3",
+            "artist": "Jimi Hendrix",
+            "title": "Little Wing",
+            "album": "Experience Hendrix: The Best of Jimi Hendrix",
+            "releaseDate": 1395187013,            
+            "duration": 221,            
+            "tempo": 200,
+            "clientRawGenre": "Rock",
+            "clientTopGenre": "Rock",
+            "clientSubGenre": "",            
+            "rating": 3.5,
+            "isSonomaFavorite": true,
+            "sonomaFavoriteDate": 1395187013,
+            "playCount": 123,
+            "skipCount": 1,
+            "playListCount": 2,            
+            "lastPlayedDate": 1395187013,
+            "addedDate": 1395187013,
+            "isMusic": true
+        },
+        {
+            "localSongId": "4",
+            "artist": "Jimi Hendrix",
+            "title": "The Wind Cries Mary",
+            "album": "Experience Hendrix: The Best of Jimi Hendrix",
+            "album": "Experience Hendrix: The Best of Jimi Hendrix",
+            "releaseDate": 1395187013,            
+            "duration": 221,            
+            "tempo": 187,
+            "clientRawGenre": "Rock",
+            "clientTopGenre": "Rock",
+            "clientSubGenre": "",            
+            "rating": 3.5,
+            "isSonomaFavorite": true,
+            "sonomaFavoriteDate": 1395187013,
+            "playCount": 9,
+            "skipCount": 3,
+            "playListCount": 2,            
+            "lastPlayedDate": 1395187013,
+            "addedDate": 1395187013,
+            "isMusic": true            
+        }
+    ]
+}
+
+
+
+</pre>
+
+<!-- 
+
+<h3>Example: Add songs to a NEW library: no localSongIds (web client)</h3>
+
+Notice:<br/>
+(1) the absence of the <b>id</b> property to identify the song library<br/>
+(2) the absence of the <b>localSongId</b> property in each of the individual songs.<br/><br/>
+
+
+<pre>
+POST /sonoma/songLibrary HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "deviceId": "Web Browser",
+    "songs": [
+        {
+            "artist": "The Beatles",
+            "title": "Let it Be",
+            "album": "Lit it Be",
+            "tempo": 200,
+            "iTunesGenre": "Rock",
+            "rating": 3.5,
+            "duration": 221,
+            "releaseDate": 1395187013,
+            "playCount": 123,
+            "skipCount": 1,
+            "lastPlayedDate": 1395187013,
+            "bookMarkedTime": 1395187013,
+            "appearsInPlayList": false
+        },
+        {
+            "artist": "The Beatles",
+            "title": "Eleanor Rigby",
+            "album" : "Revolver",
+            "tempo": 187.
+            "iTunesGenre": "Rock"            
+        }
+    ]
+}
+
+</pre>
+
+
+
+
+<h3>Example: Add songs to an EXISTING library: no localSongIds (web client)</h3>
+
+Notice:<br/>
+(1) the existence of the <b>id</b> property to identify the song library<br/>
+(2) the absence of the <b>localSongId</b> property in each of the individual songs.<br/><br/>
+
+
+<pre>
+POST /sonoma/songLibrary HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "songLibraryId": "532b3ae50364bb3e4030ec44",
+    "deviceId": "Web Browser",
+    "songs": [
+        {
+            "artist": "Jimi Hendrix",
+            "title": "Little Wing",
+            "album": "Experience Hendrix: The Best of Jimi Hendrix",
+            "tempo": 200,
+            "iTunesGenre": "Rock",            
+            "rating": 3.5,
+            "duration": 221,
+            "releaseDate": 1395187013,
+            "rating": 4.5,
+            "playCount": 123,
+            "skipCount": 1,
+            "lastPlayedDate": 1395187013,
+            "bookMarkedTime": 1395187013,
+            "appearsInPlayList": false
+        },
+        {
+            "artist": "Jimi Hendrix",
+            "title": "The Wind Cries Mary",
+            "album": "Experience Hendrix: The Best of Jimi Hendrix",
+            "tempo": 187,
+            "iTunesGenre": "Rock"
+        }
+    ]
+}
+
+</pre>
+
+
+ -->
+
+
+<h3>Description</h3>
+
+<p>Data in the JSON ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:black">id</span><br/>(it's complicated)</td>
+<td>
+A unique identifier for the song library.<br/>
+If you are adding songs to a songLibrary that already exists for the device,
+the id is required <br/>
+because this is how we know which library to add the songs to.<br/>
+If you POST without this id, the system will try to create a new song library for you.<br/>
+Only one song library is allowed per device.<br/>
+So if you try to create a new library, without first deleting the old one, the POST will fail.<br/>
+The rule is that a user may have 1 songLibrary per device.<br/>
+In practice, most users will have only one device.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">deviceId</span><br/>(required)</td>
+<td>A unique identifier for the device on which the song library is stored.<br/>
+Each device may only contain a single song library.
+</td>
+</tr>
+
+<tr>
+<td colspan="2"><b>Song identity</b>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.artist</span><br/>(required)</td>
+<td>
+The name of the artist of the song.<br/>
+Ideally this name should match the name of the artist in the graceNote database.<br/>
+If it does not, certain functionality will not work well.
+We may not, for example, be able to accurately determine which GraceNote genres to assign to this 
+artist and song.
+<br/><br/>
+
+<span style="color:red">
+BEWARE: The combination of song.artist + song.title MUST be unique in the user's library.<br/>
+If you try to submit the same song twice, the POST will fail.<br/>
+The records in your post BEFORE the duplicate will be inserted.<br/>
+The records in your post AFTER the duplicate will not be.<br/>
+If this happens, you are going to have to <b>GET songLibrary</b> to determine which 
+inserts failed and which inserts succeeded<br/>
+before attempting to POST again.</span>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.title</span><br/>(required)</td>
+<td>The title of the song.<br/>
+Ideally this title should match the title of a song in the graceNote database.<br/>
+If it does not, certain functionality will not work well.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:black">song.duration</span><br/>(optional)</td>
+<td>
+Integer. Length of the song in seconds.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:black">song.tempo</span><br/>(optional)</td>
+<td>
+The tempo of this song, expressed as a number of beats per minute.<br/>
+An integer greater than 0.<br/>
+Note: Even though this is listed as an "optional" parameter, <br/>
+it is highly desired that the beats per min of all songs in a users library
+be known at all times. <br/>
+Without this information, these songs will be excluded from 
+any recommendations that require a min or max tempo.<br/>
+If this information is NOT specified in the POST, the server might attempt find the tempo
+information for the song elsewhere and return it to the client.<br/>
+However, the server may or may not be successful in this attempt and the client should 
+NOT rely upon the server succeeding.<br/><br/>
+
+NOTE: If the user has a HUGE library, it does not make sense to force the client
+to sample thousands of files to determine the tempo before POSTing the library - 
+unless this can be done without negatively affecting the user experience with a delay.<br/>
+An alternative approach is to POST without tempo info and wait for the server to send back
+an aynchronous notification for all known tempos for the songs listed.<br/>
+Upon receiving this information and updating the local database,
+the client could concentrate on sampling and sending up the tempo information for
+only the songs whose tempo is not already known in a PUT request.<br/>
+Should the user try to retrieve recommendations based on "tempo" before the tempo is
+known for all the songs, they should be notified that this feature will not work correctly
+until we finish updating their database.
+
+</tr>
+
+
+<tr>
+<td colspan="2"><b>Classification</b>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.clientRawGenre</span><br/>(optional)</td>
+<td>
+Whatever information the user currently has written in the genre field for this song in their iTunes database.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.clientTopGenre</span><br/>(optional)</td>
+<td>
+The iTunes top level genre that client believes this song belongs to.<br/>
+Must be one of these:<br/>
+<a href="http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html">http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html</a>
+</tr>
+
+
+<tr>
+<td><span style="color:black">song.clientSubGenre</span><br/>(optional)</td>
+<td>
+The iTunes subgenre that client believes this song belongs to.<br/>
+Must be one of these:<br/>
+<a href="http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html">http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html</a>
+</tr>
+
+<tr>
+<td colspan="2"><b>How much do they like this song?</b>
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:black">song.rating</span><br/>(optional)</td>
+<td>
+How much does the user like this particular song at this particular moment?<br/>
+floating point number between 0 and 5.<br/>
+Note: It is neither required, nor expected that a rating for the song be specified at this time.<br/>
+It is expected that it will be added later via the <a href="">PUT songLibrary</a> service.<br/>
+Nevertheless, if it can be specified at this time if it is available.
+</tr>
+
+
+
+<tr>
+<td><span style="color:black">song.playCount</span><br/>(optional)</td>
+<td>
+Integer. Number of times the song as been played on this device.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.skipCount</span><br/>(optional)</td>
+<td>
+Integer. Number of times the song has been skipped on this device.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.playlistCount</span><br/>(optional)</td>
+<td>
+Integer. The number of play lists that the song appears in.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.lastPlayedDate</span><br/>(optional)</td>
+<td>
+Long. Date and time that this song was last played in epoch time.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.addedDate</span><br/>(optional)</td>
+<td>
+Long. Date and time that this song was added to the library - in epoch time.
+</td>
+</tr>
+
+
+
+
+<tr>
+<td><span style="color:black">song.isMusic</span><br/>(optional)</td>
+<td>
+Boolean. Is this audio file music?
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.sonogramImage</span><br/>(optional)</td>
+<td>
+A URL to a sonogram image produced for this song.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.bookMarkedTime</span><br/>(optional)</td>
+<td>
+Long. Date and time that this song was "bookmarked" in epoch time.
+</td>
+</tr>
+</tr>
+
+
+<tr>
+<td><span style="color:black">song.releaseDate</span><br/>(optional)</td>
+<td>
+Long. Release date of the song in epoch time.
+</td>
+</tr>
+
+</table>
+
+
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>201 Created</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>401 Not Authorized</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+4 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 201: &quot;Created&quot; (localSongIds POSTED)</h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+
+{
+    "songLibraryId": "5330a192da060025eb667ac1",
+    "jobId": "5330a192da060025eb667ac1",
+    "songs": [
+        {
+            "localSongId": "3",
+            "clientRawGenre": "Hip Hop",
+            "clientTopGenre": ""
+            "clientSubGenre": "",
+            "serverTopGenre": "Hip-Hop/Rap",                
+            "serverSubGenre": "Gangsta Rap",            
+            "master": {
+                "id": "5330a192da060025eb667ac1",
+                "artist": "Dr.Dre",
+                "title": "Nuttinbuta\"G\"Thang",
+                "topGenre": "Hip-Hop/Rap",                
+                "subGenre": "Gangsta Rap",
+                "tempo": 137,
+                "energy": 3.0
+            }
+        },
+        {
+            "localSongId": "6",
+            "clientRawGenre": "Hip Hop",
+            "clientSubGenre": "",
+            "clientTopGenre": ""
+            "serverTopGenre": "Hip-Hop/Rap",                
+            "serverSubGenre": "Gangsta Rap",            
+            "master": {
+                "id": "5330a192da060025eb667ac1",
+                "artist": "Eminem",
+                "title": "Follow Me",
+                "topGenre": "Hip-Hop/Rap",                
+                "subGenre": "Gangsta Rap",
+                "tempo": 137,
+                "energy": 4.0
+            }
+        }
+    ]
+}
+
+</pre>
+
+
+<!-- 
+
+<h3>(1) Response Code = 201: &quot;Created&quot; (localSongIds NOT posted)</h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+
+{
+    "songLibraryId": "5330a192da060025eb667ac1",
+    "jobId": "5330a192da060025eb667ac1",
+    "songs": [
+        {
+            "localSongId": "3",
+            "artist": "Nuttinbuta\"G\"Thang",
+            "title": "Dr Dre",
+            "clientRawGenre": "Hip Hop",
+            "clientSubGenre": "",
+            "clientTopGenre": ""
+            "serverSubGenre": "Hip-Hop/Rap",                
+            "serverTopGenre": "Gangsta Rap",
+            "master": {
+                "id": "5330a192da060025eb667ac1",
+                "title": "Nuttinbuta\"G\"Thang",
+                "artist": "Dr.Dre",
+                "subGenre": "Hip-Hop/Rap",                
+                "topGenre": "Gangsta Rap",
+                "tempo": 137,
+                "energy": 3.0
+            }
+        },
+        {
+            "localSongId": "6",
+            "artist": "Eminem",
+            "title": "Follow Me",
+            "clientRawGenre": "Hip Hop",
+            "clientSubGenre": "",
+            "clientTopGenre": ""
+            "serverSubGenre": "Hip-Hop/Rap",                
+            "serverTopGenre": "Gangsta Rap",
+            "master": {
+                "id": "5330a192da060025eb667ac1",
+                "title": "Follow Me",
+                "artist": "Eminem",
+                "subGenre": "Hip-Hop/Rap",                
+                "topGenre": "Gangsta Rap",
+                "tempo": 137,
+                "energy": 4.0
+            }
+        }
+    ]
+}
+
+</pre>
+
+ -->
+
+<p>
+This POST service is different than most insofar the client will need to look at more than the return code.
+</p>
+
+<p>
+Notice that the JSON returned is different than the JSON sent because it contains:<br/>
+(1) a unique ID for the entire library<br/>
+(2) unique ID's for each song in the library<br/>
+<br/>
+You will need to use these IDs to execute future operations on the individual songs
+or on the library as a whole.</p>
+
+<p>Description of the data ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">songLibraryId</span><br/>(guaranteed)</td>
+<td>
+A unique identifier for the library.<br/>
+All future interactions with the library must specify this id.<br/>
+Only the user who created this the song library may request operations on it.<br/>
+Only a single song library is permitted per device.<br/>
+You get your songLibraryId the first time that you invoke the POST songLibrary service for a particular device.<br/>
+In the unlikely event that you invoke the service but lose connectivity before it returns,
+you will need to invoke the <a href="GET_songLibraries.html">GET songLibraries</a> service to retrieve it.<br/>
+If the device already has a songLibrary associated with it, you must either use the existing library
+or delete it with the <a href="DELETE_songLibrary.html">DELETE songLibrary</a> service.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:black">jobId</span><br/>(maybe)</td>
+<td>
+It is possible that the information returned for each song in the JSON is only preliminary.<br/>
+The system might continue to do more work behind the scenes and update you when it has more information available 
+for you.<br/>
+When it does, you will receive a notification containing this jobId.<br/>
+When you receive that notification, you may invoke the <a href="GET_songs.html">GET songs</a> service
+to retrieve the additional information.
+</td>
+</tr>
+
+
+<tr>
+<td><span style="color:red">song.localSongId</span><br/>(guaranteed)</td>
+<td>
+The unique identifier for each song in your song library.<br/>
+This can either be the identifier that you sent up, or the one that the system generated for you.<br/>
+You must choose one strategy or the other when you create the song library.<br/>
+
+This "id" should be associated with each of the individual songs on the client and used whenever
+any operations on the individual song is requested later. <br/>
+For example, to send "tempo" information about this song to server, you would call the 
+<a href="PUT_songLibrary.html">PUT songLibrary</a> service with the paramters: songLibraryId,
+localSongId, tempo.<br/>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.artist</span><br/>(maybe)</td>
+<td>
+If you did not specify a local songId when the songs were posted,
+you're going to need a way to match the results with what you posted.<br/>
+We send back the artist and title of the songs to enable to you to do that.<br/>
+If you did send up an localSongId, these fields will not be sent back because you don't need them.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:maybe">song.title</span><br/>(maybe)</td>
+<td>
+If you did not specify a local songId when the songs were posted,
+you're going to need a way to match the results with what you posted.<br/>
+We send back the artist and title of the songs to enable to you to do that.<br/>
+If you did send up an localSongId, these fields will not be sent back because you don't need them.
+</td>
+</tr>
+
+
+<tr>
+<td colspan="2"><b>Classification</b>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.clientRawGenre</span><br/>(optional)</td>
+<td>
+Whatever information the user currently has written in the genre field for this song in their iTunes database.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:black">song.clientTopGenre</span><br/>(optional)</td>
+<td>
+The iTunes top level genre that client believes this song belongs to.<br/>
+Must be one of these:<br/>
+<a href="http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html">http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html</a>
+</tr>
+
+
+<tr>
+<td><span style="color:black">song.clientSubGenre</span><br/>(optional)</td>
+<td>
+The iTunes subgenre that client believes this song belongs to.<br/>
+Must be one of these:<br/>
+<a href="http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html">http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html</a>
+</tr>
+
+<tr>
+<td><span style="color:black">song.serverTopGenre</span><br/>(optional)</td>
+<td>
+The iTunes top level genre that server believes this song belongs to.<br/>
+Note: The server may use different algorithms that utilize resources not available to the client
+to calculate this value. So it *might* be different than that suggested by the client.<br/>
+This value *should*, however, match that in <b>master.subGenre</b>.
+Must be one of these:<br/>
+<a href="http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html">http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html</a>
+</tr>
+
+<tr>
+<td><span style="color:black">song.serverSubGenre</span><br/>(optional)</td>
+<td>
+The iTunes subgenre that server believes this song belongs to.<br/>
+Note: The server may use different algorithms that utilize resources not available to the client
+to calculate this value. So it *might* be different than that suggested by the client.<br/>
+This value *should*, however, match that in <b>master.subGenre</b>.
+Must be one of these:<br/>
+<a href="http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html">http://www.apple.com/itunes/affiliates/resources/documentation/genre-mapping.html</a>
+</tr>
+
+
+<tr>
+<td colspan="2"><b>Matched master song record</b>
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.id</span><br/>(guaranteed)</td>
+<td>
+The <b>alpineSongId</b> of this song we matched this to in the alpine song library.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.artist</span><br/>(guaranteed)</td>
+<td>
+The <b>artist</b> of this song we matched this to in the alpine song library.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.title</span><br/>(guaranteed)</td>
+<td>
+The <b>title</b> of this song we matched this to in the alpine song library.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.topGenre</span><br/>(guaranteed)</td>
+<td>
+The iTunes <b>top level genre</b> of this song we matched this to in the alpine song library.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.subGenre</span><br/>(guaranteed)</td>
+<td>
+The iTunes <b>subgenre</b> of this song we matched this to in the alpine song library.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.tempo</span><br/>(guaranteed)</td>
+<td>
+The <b>tempo</b> of this song we matched this to in the alpine song library.
+</td>
+</tr>
+
+<tr>
+<td><span style="color:red">song.master.energy</span><br/>(guaranteed)</td>
+<td>
+The <b>energy</b> of this song we matched this to in the alpine song library.<br/>
+Note: This number is subject to change as the algorithm used to calculate it is constantly being revised.
+</td>
+</tr>
+
+
+
+
+
+</table>
+
+
+<h3>(2) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error in the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+
+
+<h3>(3) Response Code = 401: &quot;Not Authorized&quot; </h3>
+<p>If a valid username/password was not passed via the Basic Authentication mechanism,
+this error code will be returned.</p>
+
+<pre>
+HTTP/1.1 401 Not Authorized
+WWW-Authenticate: Basic realm="alpineconnectivity.com"
+
+{
+    "errorCode": 401,
+    "errorMessage": "Not Authorized",
+    "data": "Authorization header was not found."
+}
+</pre>
+
+
+<h3>(4) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error on the server that prevents us fulfilling to the request,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Error inserting record into the database.."
+}
+</pre>
+
+
+<br/><hr/>
+<!-- 
+<h2>Example Java code</h2>
+ -->
+ 
+<pre>
+
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

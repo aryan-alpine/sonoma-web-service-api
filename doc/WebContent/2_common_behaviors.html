@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<h1>Common Behaviors</h1>
+
+<p>You can expect the following behavior from all of Alpine web-services:</p>
+
+<ul>
+<li><a href="#returnCodes">Return Codes</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#deviceAccounts">Device Accounts</a></li>
+<li><a href="#caching">Caching</a></li>
+</ul>
+
+
+
+<a name="returnCodes"></a>
+<br/><hr/>
+<h2>(1) Return Codes</h2>
+
+We follow the convention of relying on the return codes of the HTTP protocol
+to indicate the return status of all of our services.<br/>
+However, we only use a small subset of these return codes.<br/>
+The service description for each individual service describes exactly what
+return codes you (as a client developer) need to be able to handle
+for that particular service.<br/>
+Here is the list of all possible return codes 
+and a description of when you can expect to receive them.
+
+<br/><br/>
+
+<table width="100%" border="1">
+<thead>
+  <tr>
+    <th>HTTP status code</th>
+    <th>Meaning</th>
+    <th>Description</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+  <td>200</td>
+  <td>Success</td>
+  <td>If the service is GET, PUT or DELETE, a return code of 200 will be returned
+  to let you know that the service executed correctly. <br/>
+  You should *always* check the return code of the service before attempting
+  to process the return data. If the return code is not the one you expect,
+  the data you are attempting to process will be different than you expect
+  and your code will break.</td>
+</tr>
+<tr>
+  <td>201</td>
+  <td>Created</td>
+  <td>If the service is a POST, it is usually "creating" new data on the server,
+  so we will return a success code of 201 instead of the usual 200 code
+  to let you know that a record was successfully created.<br/>
+  The body of the HTTP Response will usually contain an identifier that you 
+  can and should use to access the resource that you just created on the server.</td>
+</tr>
+<tr>
+  <td>400</td>
+  <td>Bad Request</td>
+  <td>There was something wrong with the data that was sent to the server.<br/>
+  It might be data that was sent as JSON in the HTTP Body of an HTTP POST or PUT.<br/>
+  It might be data that was sent as parameters to an HTTP GET or DELETE method.<br/>
+  Or it might be data that was sent via another HTTP Header.<br/>
+  When you receive this error, look in the JSON returned for a description of exactly 
+  what the problem was.<br/>
+  Review the validation rules for the data specified in the service description
+  for the particular service you are using
+  and alter the data that you are sending accordingly.<br/>
+  It is expected that these kinds of problems will be worked out in development
+  and should not occur very frequently in production.</td>
+</tr>
+<tr>
+  <td>401</td>
+  <td>Not Authorized</td>
+  <td>Some services require that the user be authenticated in order to use them.<br/>
+  For these services, a valid username/password must be sent in the HTTP "Authorization" header
+  using the standard HTTP Basic Authentication mechanism.<br/>
+  If it is not, the 401 error code will be returned to you.<br/>
+  At which point, you should prompt your use to either enter the correct credentials,
+  or create an account if they would like to use this service.<br/>
+  See the section on <a href="#security">Security</a> below for more information.</td>
+</tr>
+<tr>
+  <td>500</td>
+  <td>Server Error</td>
+  <td>Something went wrong on the server.<br/>
+  A description of what went wrong will be contained in the body of the respose.<br/>
+  There's not much that you can do about this other than ensure that 
+  your app handles the error code gracefully
+  by providing a pleasant experience for the user.<br/>
+  Rest assured that *every* time any error occurs on the server
+  an email is automatically sent to an administrator describing exactly what happened
+  and providing them with all the information they need in order to fix the problem fast.</td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+<a name="security"></a>
+<br/><hr/>
+<h2>(2) Security</h2>
+
+We use the standard HTTP Basic Authentication mechanism to authenticate users of services.<br/>
+
+<h3>Client side</h3>
+When the user agent wants to send the server authentication credentials it may use the <b>Authorization</b> header.<br/>
+The Authorization header is constructed as follows:<br/>
+Username and password are combined into a string "username:password"<br/>
+The resulting string literal is then encoded using Base64<br/>
+The authorization method and a space i.e. "Basic " is then put before the encoded string.<br/><br/>
+For example, if the user agent uses 'Aladdin' as the username and 'open sesame' as the password then the header is formed as follows:<br/>
+Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
+<br/><br/>
+Here is an example of what a full HTTP request looks like containing the authorization header.<br/>
+
+<pre>
+POST /sonoma/event HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+    "type": "listen",
+    "song": {
+        "artist": "Metallica",
+        "title": "Fade to Black"
+    },
+    "eq": {
+        "id": "51f973830d861c2c5c626910",
+        "name": "Metallica Settings"
+    }
+}
+</pre>
+
+
+<h3>Server side</h3>
+
+The server decodes and checks the authentication credentials before deciding how to respond to the request.<br/>
+If valid credentials are found, the server allows the request to be processed.<br/>
+If valid credentials are not found, the server responds with a <b>401 Not Authorized</b> response code.<br/>
+According to the standard, the server must also specify exactly what "realm" they'd like you to authenticate against
+by returning the <b>WWW-Authenticate</b> header as well.
+
+<br/><br/>
+For our purposes, we are using single-sign on for all alpine services, so the realm will always be the same.<br/>
+That means you can ignore the <b>WWW-Authenticate</b> header.<br/>
+Always, however, code to handle a 401 response code for a service that requires authentication.<br/>
+You can, for example, give the user the option to reset their password.<br/>
+Ideally, if they don't already have an alpine account, you would prompt them to create an account or enter existing credentials *before* sending the request to the server.<br/>
+In practice, if the client-side code is robust, the only time you should see this 401 error code 
+is when the user has changed their password on another device but the device they are currently using has stored the old password.
+
+<br/><br/>
+Here is an example of what an HTTP response might look like when there was something wrong
+the authentication credentials sent in the request to use the service:<br/>
+
+
+<pre>
+HTTP/1.1 401 Not Authorized
+WWW-Authenticate: Basic realm="alpineconnectivity.com"
+
+{
+    "errorCode": 401,
+    "errorMessage": "Not Authorized",
+    "data": "Authorization header was not found."
+}
+</pre>
+
+
+<a name="deviceAccounts"></a>
+<br/><hr/>
+<h2>(3) Device Accounts</h2>
+
+The general policy that we follow is to allow read-only services that do not expose
+sensitive data to be used without any form of authentication.<br/>
+On the other hand, services that write data, in particular data that belongs to a particular user,
+usually require authentication in order to use.<br/>
+However, some applications allow users to write account specific information to a server-side
+data store without requiring the user to create a user account.<br/>
+The reason for this is to offer more value (in the form of personalized services) 
+to the user BEFORE asking them to make the investment of creating an actual
+user account.<br/>
+In so doing the goal is to reduce the number of users who leave when they are asked 
+to create an account.<br/>
+The way this is accomplished is by sending up a deviceId + (randomly generated) password
+in the Authorization header instead of the traditional username + password.<br/>
+On the server-side, all user data will be associated with the device id.
+
+<pre>
+POST /sonoma/event HTTP/1.1
+Host: dev5:8888
+Authorization: Basic Njg3NTNBNDQtNEQ2Ri0xMjI2LTlDNjAtMDA1MEU0QzAwMDY3OnJhbmRvbVBhc3N3b3JkMTIz
+
+{
+    "type": "listen",
+    "song": {
+        "artist": "Metallica",
+        "title": "Fade to Black"
+    },
+    "eq": {
+        "id": "51f973830d861c2c5c626910",
+        "name": "Metallica Settings"
+    }
+}
+</pre>
+
+Notice that it looks very similar to the previous "Basic Authentication" example.
+<br/>What's different is the actual content of the base64 encoded string
+<br/>Instead of "username:password" the string is now "deviceId:password"
+<br/><br/>
+
+
+
+Some services require only a device id, whereas others will require an
+actual user account.<br/>
+When the user wants to use services that require a user account,
+the application should prompt them to create an account.<br/>
+When an account has been created, the data that was associated with the device id
+will be seemlessly associated with the new user account.
+
+
+
+<a name="caching"></a>
+<br/><hr/>
+<h2>(4) Caching</h2>
+
+
+Caching of HTTP response data enables both<br/><br/>
+(1) A more responsive application<br/>
+&nbsp;&nbsp;<i>This creates a more pleasant user experience</i><br/><br/>
+(2) Efficient utilization of server resources<br/>
+&nbsp;&nbsp;<i>This keeps our cost per user low enabling us to invest more in new functionality instead of hardware</i></p>
+
+The HTTP protocol specifies 2 kinds of caching<br/>
+(1) User Agent caching<br/>
+(2) Proxy Server caching
+<br/><br/>
+
+We are concerned here only with user agent caching.<br/>
+The protocol works as follows:<br/>
+When the server sends the response to the client, it may also send along with it, a request to cache the response.<br/>
+It does so by adding a couple headers to the response that the device programmer must watch for and pay attention to.<br/>
+This request to cache will tell the user agent exactly how long to cache the content for.<br/>
+The user agent should obey this request unless the user explicitly requests to refresh the data from server instead of using local cached data.
+
+<br/><br/><br/>
+Here is an example of what an HTTP response might look like when the server sends a request to the client to cache the response: <br/>
+
+<pre>
+Cache-Control:public, max-age=31536000
+Expires: Mon, 25 Jun 2012 21:31:12 GMT
+</pre>
+
+NOTE: <b>max-age</b> tells the user agent exactly how many seconds it should cache the content for.<br/>
+The <b>Expires</b> header tells the user agent what the date and time of the expiry will be.<br/><br/><br/>
+
+The device programmer may choose to use either of these to calculate when the response data should expire.<br/>
+When user selects to execute the exact same request again,<br/>
+the device programmer should ensure that he checks the cache to see if unexpired data for that request still reside there,<br/>
+before sending the request to the server.<br/>
+The unexpired data should be offered to the user instead of sending a request 
+
+
+</body>
+</html>

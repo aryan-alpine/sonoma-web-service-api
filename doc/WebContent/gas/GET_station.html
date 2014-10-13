@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET station</h1>
+
+<p>Get the gas price (submitted by an Alpine user) at a particular gas station.<br/>
+</p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/station/99561</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET so there is no body that needs to be described.<br/>
+Only the basic headers are sent.<br/>
+For example:</p>
+
+<pre>
+GET /station/99561 HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<table width="100%" border="1">
+
+<tr>
+<td>id<br/>(required)</td>
+<td>The objectId returned when the data was originally persisted to the database.</td>
+</tr>
+
+</table>
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/station/99561</p>
+
+<h2>Example Response</h2>
+
+<pre>
+{
+{
+    "id": "99561",
+    "name": "unbranded",
+    "notes": "fuzz is there usually on friday nights",
+    "lat": "37.367210388183594",
+    "lng": "-122.02252197265625",
+    "address": "603 Old San Francisco Rd",
+    "city": "Sunnyvale",
+    "region": "California",
+    "telephone": "",
+    "thumnailImageUrl": "http://54.212.98.118:8888/image/51f9b0cfe4b049a48b59ed42.jpg",
+    "fullImageUrl": "http://54.212.98.118:8888/image/51fb108de4b021bb8ed2f70b.jpg",
+    "userImages": [
+        {
+            "type": "thumbnail?",
+            "url": "http://54.212.98.118:8888/image/51fb1489e4b021bb8ed2f70e.jpg",
+            "dateSubmitted": "2013-08-02T5:45:35-0700",
+            "user": "alexander.j.ryan@gmail.com",
+            "app": "SnapGas",
+            "expires": "2013-09-02T5:45:35-0700",
+            "title": "The Thumbnail Image"
+        },
+        {
+            "type": "FULL?",
+            "url": "http://54.212.98.118:8888/image/51fb1548e4b021bb8ed2f710.jpg",
+            "dateSubmitted": "2013-08-02T5:45:35-0700",
+            "user": "alexander.j.ryan@gmail.com",
+            "app": "SnapGas",
+            "expires": "2013-09-02T5:45:35-0700",
+            "title": "The FULL Image"
+        }
+    ],
+    "prices": [
+        {
+            "type": "pre",
+            "price": "N/A",
+            "source": "notAlpine.com",
+            "date": "56 minutes ago"
+        },
+        {
+            "type": "reg",
+            "price": "4.16",
+            "source": "alpine",
+            "date": "2013-07-23T2:30:37-0700"
+        },
+        {
+            "type": "mid",
+            "price": "4.36",
+            "source": "alpine",
+            "date": "2013-07-23T2:30:37-0700"
+        },
+        {
+            "type": "pre",
+            "price": "4.46",
+            "source": "alpine",
+            "date": "2013-07-23T2:30:37-0700"
+        },
+        {
+            "type": "reg",
+            "price": "4.00",
+            "source": "notAlpine",
+            "date": "2013-08-02T5:45:35-0700"
+        }
+    ]
+}
+</pre>
+
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

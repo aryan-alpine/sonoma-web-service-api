@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>PUT bargainWatch</h1>
+
+<p>Update your bargainWatch to change your notification preferences.</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is PUT.<br/>
+For example:</p>
+
+<pre>
+PUT /bargainWatch HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+</pre>
+
+<p>This service may only be used by registered users who are authorized to use it.<br/>
+The HTTP Basic Authentication scheme is used to pass the encoded username:password of the user.</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<p>One way to pass data to a service is via the parameters of the request method 
+in the "headers" section of the HTTP request.<br/>
+This service does not utilize this approach.</p>
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<p>Another way to pass data to a service is via the body of the HTTP request.<br/>
+This service passes data in this fashion in a JSON data structure.<br/>
+An example of the data structure and a detailed description of its elements follows...</p>
+
+<h3>Example</h3>
+
+
+
+<p>The body of the POST request contains JSON.<br/>
+
+NOTE: The only difference between the parameters passed to this PUT/UPDATE service
+and the POST/CREATE service, is that this service also includes the "id" parameter
+which is used to identify the existing bargainWatch that we want to update.<br/><br/>
+
+The data in the JSON specifies <br/>
+(1) what a bargain gas price is for them<br/>
+e.g. if "maxPrice" is 3.50, they should be notified of prices that are 3.50 or less.<br/>
+(2) which geographic area they are interested in being notified of bargains<br/>
+The latitude + longitude + radius defines the circular area of interest.<br/>
+Any stations that fall within that circle will be watched.<br/>
+(3) how they would like to be notified.<br/>
+They may be notified by (a) email, (b) text message or (c) Android app notification (future).<br/>
+<br/>
+Below is an example ...</p>
+
+<pre>
+PUT /bargainWatch HTTP/1.1
+Host: dev5:8888
+Authorization: Basic YWxleGFuZGVyLmoucnlhbkBnbWFpbC5jb206YmVhc3Q=
+
+{
+  "id": "523a4809300497ae80231ee2",
+  "maxPrice": "3.61",
+  "longitude": "-121.963610",
+  "latitude": "37.379440",
+  "radius": 8,
+  "email": true,
+  "alert": false,
+  "sms": false,
+  "name" : "Cheap gas near home"
+}
+</pre>
+
+
+<h3>Description</h3>
+
+<p>Data in the JSON ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">id</span><br/>(required)</td>
+<td>
+A 24 character hexidecimal string used to uniquely identify the bargainWatch 
+that we wish to update.
+</tr>
+
+
+<tr>
+<td><span style="color:red">name</span><br/>(required)</td>
+<td>
+Every bargainWatch must have a name<br/>
+Might be something like ...<br/>
+Cheap gas near home<br/>
+Cheap gas near work<br/>
+</tr>
+
+<tr>
+<td><span style="color:red">maxPrice</span><br/>(required)</td>
+<td>
+If the gas price at any of the stations drops below this price,.<br/>
+the user should be notified.<br/>
+</tr>
+
+
+<tr>
+<td><span style="color:red">latitude</span><br/>(required)</td>
+<td>the latitude of the location of interest</td>
+</tr>
+
+<tr>
+<td><span style="color:red">longitude</span><br/>(required)</td>
+<td>the longitude of the location of interest</td>
+</tr>
+
+<tr>
+<td><span style="color:red">radius</span><br/>(required)</td>
+<td>how far (in miles) from the geolocation of interest is the user interested in gas station prices?</td>
+</tr>
+
+<tr>
+<td>email<br/>(optional)</td>
+<td>boolean value. "true" or "false"<br/>
+Does the user want to be notified of bargain gas prices via email?<br/>
+</td>
+</tr>
+
+<tr>
+<td>sms<br/>(optional)</td>
+<td>boolean value. "true" or "false"<br/>
+Does the user want to be notified of bargain gas prices via text messages?<br/>
+If they say yes, we will need to have a valid phone number on file for them.
+</td>
+</tr>
+
+<tr>
+<td>alert<br/>(optional)</td>
+<td>boolean value. "true" or "false"<br/>
+Does the user want to be notified of bargain gas prices via an android alert?<br/>
+If they say yes, they will need to be an android user with the app installed.
+</td>
+</tr>
+
+</table>
+
+
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>201 Created</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>The body of the response should always contain JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+4 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 201: &quot;Created&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+
+{
+    "id": "523a490c30047705b8e4a0df",
+    "numberOfStationsBefore": 69,
+    "numberOfStationsAfter": 100
+}
+</pre>
+
+<p>Description of the data ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">id</span><br/>(required)</td>
+<td>
+A NEW unique identifier for the bargainWatch.<br/>
+This identifier is used if you wish to update or delete this bargainWatch in the future.<br/>
+</tr>
+
+<tr>
+<td><span style="color:red">numberOfStationsBefore</span><br/>(required)</td>
+<td>
+The number of gas stations whose prices we were watching for this bargainWatch BEFORE the update.<br/>
+</tr>
+
+<tr>
+<td><span style="color:red">numberOfStationsAfter</span><br/>(required)</td>
+<td>
+The number of gas stations whose prices we are now watching for this bargainWatch AFTER the update.<br/>
+</tr>
+
+</table>
+
+
+<h3>(3) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+
+
+<h3>(4) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Unable to read the body of the HTTP POST."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+package com.alpine.rest;
+
+import java.io.IOException;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.AuthCache;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicAuthCache;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
+import com.alpine.data.http.common.RestError;
+import com.alpine.data.http.gas.putBargainWatch.request.PutBargainWatchRequest;
+import com.alpine.data.http.gas.putBargainWatch.response.PutBargainWatchResponse;
+import com.google.gson.Gson;
+
+public class PutBargainWatchSecure {
+
+  private static Logger logger = Logger.getLogger(PutBargainWatchSecure.class.getName());
+  
+  
+  /**
+   * @param args
+   */
+  public static void main(String[] args) {
+
+    /////////////////////////////////////////////////////////////////////////
+    // Create the PUT request
+    /////////////////////////////////////////////////////////////////////////
+    
+    PutBargainWatchRequest putBargainWatchRequest = new PutBargainWatchRequest();
+
+    putBargainWatchRequest.setId("523b8272300492dc3bd3768c");
+    putBargainWatchRequest.setMaxPrice("3.52");
+    putBargainWatchRequest.setLatitude("37.379440");
+    putBargainWatchRequest.setLongitude("-121.963610");
+    putBargainWatchRequest.setRadius(new Long(6));
+    putBargainWatchRequest.setEmail(Boolean.TRUE);
+    putBargainWatchRequest.setSms(Boolean.TRUE);
+    putBargainWatchRequest.setAlert(Boolean.FALSE);
+    putBargainWatchRequest.setName("Cheap Gas Near Alpine");
+    putBargainWatchRequest.setUser("Will be overwritten on the server");
+    
+    Gson gson = new Gson();
+    String json = "not null";
+    try {
+      json = gson.toJson(putBargainWatchRequest);      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return;
+    }
+    logger.info("json=|" + json + "|");
+    
+    
+    /////////////////////////////////////////////////////////////////////////
+    // Add Basic Authentication to the Authorization Header
+    /////////////////////////////////////////////////////////////////////////
+    
+    DefaultHttpClient httpclient = new DefaultHttpClient();
+    HttpHost targetHost = new HttpHost("localhost", 8080, "http");
+    
+    AuthScope authScope = new AuthScope(targetHost.getHostName(), targetHost.getPort());
+    UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("alexander.j.ryan@gmail.com", "beast");
+    httpclient.getCredentialsProvider().setCredentials(authScope, credentials);
+    
+    // Create AuthCache instance
+    AuthCache authCache = new BasicAuthCache();
+    // Generate BASIC scheme object and add it to the local
+    // auth cache
+    BasicScheme basicAuth = new BasicScheme();
+    authCache.put(targetHost, basicAuth);
+
+    // Add AuthCache to the execution context
+    BasicHttpContext localcontext = new BasicHttpContext();
+    localcontext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+    
+    HttpPut httpPut = new HttpPut("http://localhost:8080/alpine/bargainWatch");
+    HttpResponse response = null;
+    
+    try {
+      
+      /////////////////////////////////////////////////////////////////////////
+      // Send the PUT request
+      /////////////////////////////////////////////////////////////////////////
+      
+      StringEntity stringEntity = new StringEntity(json);
+      stringEntity.setContentType("application/json");    
+      httpPut.setEntity(stringEntity);
+      //response = httpClient.execute(httpPost);
+      response = httpclient.execute(targetHost, httpPut, localcontext);
+      
+      //HttpEntity entity2 = response.getEntity();
+      
+      /////////////////////////////////////////////////////////////////////////
+      // Response: What's in the headers?
+      /////////////////////////////////////////////////////////////////////////
+      
+      StatusLine statusLine = response.getStatusLine();
+      int statusCode = statusLine.getStatusCode();
+      logger.info("statusCode=|" + statusCode + "|");
+
+      Header[] headers = response.getAllHeaders();
+      for (Header header : headers) {
+        String name = header.getName();
+        String value = header.getValue();
+        logger.info(name + ": " + value);
+      }
+      
+      /////////////////////////////////////////////////////////////////////////
+      // Response: What's in the body?
+      /////////////////////////////////////////////////////////////////////////
+      HttpEntity entity2 = response.getEntity();
+      String json2 = EntityUtils.toString(entity2);
+      logger.info("json2=|" + json2 + "|");
+      
+      switch (statusCode) {
+      
+        case 201:
+          handle201(json2);
+          break;
+          
+        case 400:
+          handleError(json2);
+          break;
+          
+        case 500:
+          handleError(json2);
+          break;  
+      }
+            
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      httpPut.releaseConnection();      
+    }
+
+  } // main
+  
+  
+  /**
+   * 
+   * @param json2
+   */
+  public static void handle201(String json2) {
+    Gson gson = new Gson();
+    PutBargainWatchResponse putBargainWatchResponse = gson.fromJson(json2, PutBargainWatchResponse.class);
+    
+    //PostBargainWatchResponse postBargainWatchResponse = new PostBargainWatchResponse();
+    String id = putBargainWatchResponse.getId();
+    Integer numberOfStationsWatchingBefore = putBargainWatchResponse.getNumberOfStationsBefore();
+    Integer numberOfStationsWatchingAfter = putBargainWatchResponse.getNumberOfStationsAfter();
+    
+    logger.info("id=|" + id + "|");
+    logger.info("numberOfStationsWatchingBefore=|" + numberOfStationsWatchingBefore + "|");
+    logger.info("numberOfStationsWatchingAfter=|" + numberOfStationsWatchingAfter + "|");
+  }
+ 
+  /**
+   * 
+   */
+  public static void handleError(String json2) {
+    Gson gson = new Gson();
+    RestError restError = gson.fromJson(json2, RestError.class);
+
+    logger.info("errorCode=|" + restError.getErrorCode() + "|");
+    logger.info("errorMessage=|" + restError.getErrorMessage() + "|");  
+    logger.info("data=|" + restError.getData() + "|"); 
+  }
+  
+}
+</pre>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>POST deviceAccount</h1>
+
+<p>Create a <a href="../2_common_behaviors.html#deviceAccounts">device account</a>.</p>
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is POST.<br/>
+For example:</p>
+
+<pre>
+POST /deviceAccount HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: BODY: Parameters</h2>
+
+<p>When the HTTP method is POST or PUT, the RESTful convention is 
+to pass data to a service is via the body of the HTTP request.<br/>
+This service passes data in this fashion in a JSON data structure.<br/>
+An example of the data structure and a detailed description of its elements follows...</p>
+
+<h3>Example</h3>
+
+<pre>
+POST /deviceAccount HTTP/1.1
+Host: test.alpineconnectivity.com:8888
+
+{
+    "deviceId": "68753A44-4D6F-1226-9C60-0050E4C00067",
+    "password": "Z5y334yaksnefovuI83TT"
+}
+</pre>
+
+
+<h3>Description</h3>
+
+<p>Data in the JSON ...</p>
+
+<table width="100%" border="1">
+
+
+<tr>
+<td><span style="color:red">deviceId</span><br/>(required)</td>
+<td>
+An ID that is unique to the device that sent the request.<br/>
+iPhone device IDs look different than Android device IDs.<br/>
+In theory the device ID is tied to the hardware of the device and thus will never change.<br/>
+In practice the device ID is highly unlikely to change.<br/>
+The device ID sent is guaranteed to be unique across all Alpine applications used 
+on that device. Even if all the applications are un-installed and reinstalled,
+the device ID will not change.<br/>
+The only thing that might change the device ID is a complete wiping of the
+operating system.
+</tr>
+
+<tr>
+<td><span style="color:red">password</span><br/>(required)</td>
+<td>
+A password that is unique to the device.<br/>
+This password will probably be randomly generated since the whole purpose of the
+device account is to give user account-like capabilities without requiring them
+to select a username + password.<br/>
+</tr>
+
+<tr>
+<td>androidRegistrationId<br/>(optional)</td>
+<td>optionally, an android registration id may be specified.<br/>
+This number may be used to send the user messages 
+on their android device via Google Cloud Messaging.</td>
+</tr>
+
+</table>
+
+
+
+<br/><br/>
+<br/><hr/>
+<h2>HTTP Response: HEAD: Headers</h2>
+
+<p>The following response codes are possible from this service.<br/>
+(Client code must handle each of them.):</p>
+
+<ul>
+<li><b>201 Created</b></li>
+<li><b>400 Bad Request</b></li>
+<li><b>500 Server Error</b></li>
+</ul>
+
+<p>
+The content of the body of the HTTP Response will always be JSON.<br/>
+Therefore, the following header will always be sent:<br/>
+<b>Content-Type: application/json</b>
+</p>
+
+
+<br/><hr/>
+<h2>HTTP Response: Body</h2>
+
+<p>If data is returned in the body of the response,
+it should always come in the form of JSON.<br/>
+The type of JSON returned varies by the response code.<br/>
+4 types of JSON are possible.</p>
+
+
+<h3>(1) Response Code = 201: &quot;Created&quot; </h3>
+<p>If the service executed successfully<br/>
+JSON like the following will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 201 Created
+</pre>
+
+<p>NOTE: If the response code of 201 was returned, the device account was created.<br/>
+ No data is returned in the body of the HTTP response.</p>
+
+
+<h3>(3) Response Code = 400: &quot;Bad Request&quot; </h3>
+<p>If there was a major error the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 400 Bad Request
+
+{
+    "errorCode": 1,
+    "errorMessage": "INVALID JSON",
+    "data": "No JSON was POSTed!"
+}
+</pre>
+
+
+<h3>(4) Response Code = 500: &quot;Server Error&quot; </h3>
+<p>If there was a major error the request that prevents us from even processing it,<br/>
+the standard JSON describing the error will be returned in the body of the response:</p>
+
+<pre>
+HTTP/1.1 500 Server Error
+
+{
+    "errorCode": 3,
+    "errorMessage": "SERVER ERROR",
+    "data": "Error inserting record into the database.."
+}
+</pre>
+
+
+<br/><hr/>
+<h2>Example Java code</h2>
+
+<pre>
+
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

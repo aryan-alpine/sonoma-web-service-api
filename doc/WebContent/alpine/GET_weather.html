@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>GET weather</h1>
+
+<p><a href="GET_weather.html">GET weather</a></td>
+    <td>Get the weather for a particular location.<br/>
+    Previously known as <span style="color:red">"/re/weather"</span></span></p>
+
+<h2>Resource</h2>
+
+<p>http://dev5:8888/weather?ts=1234&app=TEST&dev=TEST&lat=37.296233&lng=-121.944508&APIKEY=ff924797a14aaa3111f9bbda5d3344d978959</p>
+
+<h2>OLD</h2>
+
+<p>https://www.aosvapps.com/re/weather?ts=1234&app=TEST&dev=TEST&lat=37.29623303279466&lng=-121.94450855255127&APIKEY=ff924797a14aaa3111f9bbda5d3344d978959</p>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers</h2>
+
+<p>The request method is GET so there is no body that needs to be described.<br/>
+Only the basic headers are sent.<br/>
+For example:</p>
+
+<pre>
+GET weather?ts=1234&app=TEST&dev=TEST&lat=37.296233&lng=-121.944508&APIKEY=ff924797a14aaa3111f9bbda5d3344d978959 HTTP/1.1
+Host: dev5:8888
+</pre>
+
+
+<br/><hr/>
+<h2>HTTP Request: Headers: Request Method Parameters</h2>
+
+<table width="100%" border="1">
+
+<tr>
+<td>lat (required)</td>
+<td>latitude of the location you want weather information about.</td>
+</tr>
+
+<tr>
+<td>lng (required)</td>
+<td>longitude of the location you want weather information about.</td>
+</tr>
+
+<tr>
+<td>API_KEY (optional)</td>
+<td>Special key to help ensure that only approved client's may utilize this service.</td>
+</tr>
+
+<tr>
+<td>ts (optional)</td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>app (optional)</td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>dev (optional)</td>
+<td>?</td>
+</tr>
+
+
+
+</table>
+
+<h2>Example Request</h2>
+
+<p>http://dev5:8888/weather?ts=1234&app=TEST&dev=TEST&lat=37.296233&lng=-121.944508&APIKEY=ff924797a14aaa3111f9bbda5d3344d978959</p>
+
+
+<h2>Example Response</h2>
+
+<pre>
+{
+    "status": "ok",
+    "message": "ok",
+    "data": {
+        "icon_url": "http://icons-ak.wxug.com/i/c/k/clear.gif",
+        "display_location": {
+            "full": "Campbell, CA",
+            "city": "Campbell",
+            "state": "CA",
+            "state_name": "California",
+            "country": "US",
+            "country_iso3166": "US",
+            "zip": "95009",
+            "magic": "1",
+            "wmo": "99999",
+            "latitude": "37.296233",
+            "longitude": "-121.944508",
+            "elevation": "57.00000000"
+        },
+        "feelslike_string": "87 F (30 C)",
+        "dewpoint_f": "57",
+        "precip_1hr_in": "-999.00",
+        "precip_today_in": "0.00",
+        "pressure_trend": "-",
+        "solarradiation": "",
+        "temp_f": "88.0",
+        "temperature_string": "88.0 F (31.1 C)",
+        "visibility_mi": "10.0",
+        "weather": "Clear",
+        "wind_dir": "NNE",
+        "wind_gust_mph": "0",
+        "wind_string": "From the NNE at 4.2 MPH",
+        "windchill_f": "NA",
+        "UV": "10"
+    }
+}
+</pre>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

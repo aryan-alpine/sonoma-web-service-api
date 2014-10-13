@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>NOTIFICATION: New Recall</title>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+
+<h1>NOTIFICATION: New Recall</h1>
+
+<p>A new recall has been issued for your vehicle.</p>
+
+<br/><hr/>
+<h2>Google Cloud Messaging (GCM) Message Format</h2>
+
+
+<pre>
+{
+    "recordId": 123456789,
+    "make": "FORD",
+    "model": "MUSTANG",
+    "year": "2007"
+}
+</pre>
+
+
+<br/>
+The user is receiving this notification because he/she selected to register
+one or more vehicles by calling the <a href="POST_vehicles.html">POST vehicles</a> service.
+<br/><br/>
+
+In order to stop receiving these messages, the user must change the list of 
+vehicles associated with his/her account by calling the <a href="DELETE_vehicles.html">DELETE vehicles</a> service.
+<br/><br/>
+
+The notification gets sent to the user when an administrator invokes the 
+<a href="POST_recalls.html">POST recalls</a> service and a <b>MATCH</b>
+is discovered between the vehicle the user registered and a vehicle listed in one of the
+recalls posted.
+<br/><br/>
+
+When the user receives this notification, the app developer will typically want 
+to retrieve the details of the new recall by invoking the <a href="GET_recall.html">GET recall</a> service.
+The recordId received in the GCM notification is the one that should be used 
+to call the <a href="GET_recall.html">GET recall</a> service.
+<br/><br/>
+
+The reason that the make, model & year is delivered in addition to the recordId
+is that the user *might* select to register more than a single vehicle. It therefore
+might be useful to the app developer to know which of these multiple vehicles
+the new recall has been issued for.
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48110106-1', 'alpineconnectivity.com');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
